@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy font-sans text-white/80 antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading font-semibold text-white;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-brand text-white;
+  }
+
+  /* Focus visible cohérent (accessibilité — Charte §6.2) */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-navy;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold
+      transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-accent
+      focus-visible:ring-offset-2 focus-visible:ring-offset-navy;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-600;
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/15 text-white hover:border-accent hover:text-accent;
+  }
+
+  .link-accent {
+    @apply text-accent underline-offset-4 hover:underline;
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-navy-800 p-6 transition-colors duration-200;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+
+  .prose-light {
+    @apply text-white/75 leading-relaxed;
+  }
+}

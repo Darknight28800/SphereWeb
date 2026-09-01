@@ -51,7 +51,7 @@ const config: Config = {
       },
       animation: {
         'fade-up': 'fade-up 0.5s ease-out both',
-        'spin-slow': 'spin 28s linear infinite',
+        'spin-slow': 'spin 35s linear infinite',
         'spin-reverse': 'spin 90s linear infinite reverse',
         breathe: 'breathe 6s ease-in-out infinite',
         glow: 'glow 6s ease-in-out infinite',

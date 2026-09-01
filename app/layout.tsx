@@ -3,7 +3,15 @@ import { Inter, Poppins, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import IntroLoader from '@/components/IntroLoader';
 import { site } from '@/lib/site';
+
+/**
+ * Peint un cache navy instantané (avant hydratation) si l'intro n'a pas
+ * encore été jouée dans la session. Retiré par IntroLoader à la fin,
+ * ou par sécurité après 5 s.
+ */
+const introGuard = `try{if(sessionStorage.getItem('sw-intro-played')!=='1'){document.documentElement.setAttribute('data-intro','1');setTimeout(function(){document.documentElement.removeAttribute('data-intro')},5000);}}catch(e){}`;
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -47,8 +55,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="fr"
       className={`${inter.variable} ${poppins.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
     >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: introGuard }} />
+        <IntroLoader />
         <div className="flex min-h-screen flex-col">
           <Header />
           <main id="contenu" className="flex-1">

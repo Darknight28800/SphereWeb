@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
-import HeroPlot from '@/components/HeroPlot';
+import HeroSphere from '@/components/HeroSphere';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects, services, site } from '@/lib/site';
@@ -70,7 +70,7 @@ export default function HomePage() {
             </dl>
           </div>
 
-          <HeroPlot className="hidden lg:block" />
+          <HeroSphere className="hidden lg:block" />
         </div>
       </section>
 

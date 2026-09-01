@@ -37,18 +37,14 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        blink: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.25' },
-        },
-        'draw-in': {
-          '0%': { 'stroke-dashoffset': '1' },
-          '100%': { 'stroke-dashoffset': '0' },
+        spin: {
+          to: { transform: 'rotate(360deg)' },
         },
       },
       animation: {
         'fade-up': 'fade-up 0.5s ease-out both',
-        blink: 'blink 2.4s ease-in-out infinite',
+        'spin-slow': 'spin 28s linear infinite',
+        'spin-reverse': 'spin 90s linear infinite reverse',
       },
     },
   },

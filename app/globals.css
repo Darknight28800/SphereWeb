@@ -19,7 +19,7 @@
   h2,
   h3,
   h4 {
-    @apply font-heading font-semibold text-white;
+    @apply font-heading font-semibold tracking-tight text-white;
     text-wrap: balance;
   }
 
@@ -51,16 +51,17 @@
 
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold
-      transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-accent
+      transition-all duration-200 focus-visible:ring-2 focus-visible:ring-accent
       focus-visible:ring-offset-2 focus-visible:ring-offset-navy;
   }
 
   .btn-primary {
-    @apply btn bg-brand text-white hover:bg-brand-600;
+    @apply btn bg-brand text-white shadow-[0_10px_30px_-10px_rgba(91,61,246,0.7)]
+      hover:-translate-y-0.5 hover:bg-brand-600 hover:shadow-[0_16px_40px_-12px_rgba(91,61,246,0.8)];
   }
 
   .btn-ghost {
-    @apply btn border border-white/15 text-white hover:border-accent hover:text-accent;
+    @apply btn border border-white/15 text-white hover:-translate-y-0.5 hover:border-accent hover:text-accent;
   }
 
   .link-accent {
@@ -68,14 +69,58 @@
   }
 
   .card {
-    @apply rounded-2xl border border-white/10 bg-navy-800 p-6 transition-colors duration-200;
+    @apply relative rounded-2xl border border-white/10 bg-navy-800 p-6 transition-all duration-200
+      hover:-translate-y-1 hover:border-brand/40
+      hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.7)];
   }
 
   .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+    @apply inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-6 bg-accent/60;
   }
 
   .prose-light {
-    @apply text-white/75 leading-relaxed;
+    @apply leading-relaxed text-white/75;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent to-brand-400 bg-clip-text text-transparent;
+  }
+
+  /* Trame de points discrète pour les fonds de section */
+  .surface-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .hairline-top {
+    @apply border-t border-white/10;
+  }
+}
+
+@layer utilities {
+  /* Révélation au scroll (voir components/Reveal.tsx) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
   }
 }

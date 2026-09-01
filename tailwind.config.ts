@@ -37,9 +37,23 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(12px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        orbit: {
+          to: { transform: 'rotate(360deg)' },
+        },
+        'orbit-reverse': {
+          to: { transform: 'rotate(-360deg)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(-4px)' },
+          '50%': { transform: 'translateY(4px)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.5s ease-out both',
+        orbit: 'orbit 32s linear infinite',
+        'orbit-slow': 'orbit 60s linear infinite',
+        'orbit-reverse': 'orbit-reverse 44s linear infinite',
+        float: 'float 7s ease-in-out infinite',
       },
     },
   },

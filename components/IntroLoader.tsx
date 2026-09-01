@@ -5,13 +5,13 @@ import Image from 'next/image';
 
 const KEY = 'sw-intro-played';
 
-/* Durées des phases en millisecondes — ajustables librement (total ≈ 20 s) */
+/* Durées des phases en millisecondes — ajustables librement (total ≈ 16 s) */
 const PHASE = {
-  cruise: 6_000, // 1. en hyper-espace
+  cruise: 4_000, // 1. en hyper-espace
   decelerate: 3_000, // 2. décélération — la sphère se rapproche
   hold: 3_000, // 3. sphère au centre (rotation 35 s, zoom/dézoom 3 s) + barre
   accelerate: 3_000, // 4. ré-accélération — les étoiles s'étirent
-  rehyperspace: 3_600, // 5. hyper-espace ; les traits s'estompent sur la fin
+  rehyperspace: 1_800, // 5. hyper-espace ; les traits s'estompent sur la fin
 } as const;
 
 type Phase = 'cruise' | 'decelerate' | 'hold' | 'accelerate' | 'rehyperspace' | 'reveal';
@@ -28,7 +28,7 @@ const BOUND: Record<string, [number, number]> = (() => {
   return b;
 })();
 const SPEED = 0.7; // vitesse de croisière (unités de profondeur / s)
-const REHYPER_FADE = 1500; // ms de fondu des traits en fin d'hyper-espace
+const REHYPER_FADE = 1200; // ms de fondu des traits en fin d'hyper-espace
 const REVEAL_MS = 1400; // durée d'apparition de la page
 const SPHERE_ZOOM = 55; // facteur d'agrandissement de la sphère pendant l'accélération
 

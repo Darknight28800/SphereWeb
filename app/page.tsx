@@ -87,7 +87,7 @@ export default function HomePage() {
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.key} delay={i * 90}>
-              <article className="glass-panel glass-sheen h-full pt-8">
+              <article className="glass-panel glass-sheen shine h-full pt-8">
                 <span className="glass-tag">{String(i + 1).padStart(2, '0')}</span>
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                   <Icon name={s.icon} className="h-5 w-5" />
@@ -123,7 +123,7 @@ export default function HomePage() {
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {featured.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90}>
-              <Link href={`/portfolio/${p.slug}`} className="group glass-panel flex h-full flex-col">
+              <Link href={`/portfolio/${p.slug}`} className="group glass-panel shine flex h-full flex-col">
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-lg">{p.name}</h3>
@@ -159,7 +159,7 @@ export default function HomePage() {
         <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map(([num, title, desc], i) => (
             <Reveal key={num} delay={i * 80} as="li">
-              <div className="glass-panel h-full border-l-2 border-l-brand/50">
+              <div className="glass-panel shine h-full border-l-2 border-l-brand/50">
                 <span className="font-mono text-xs tracking-widest text-accent">{num}</span>
                 <h3 className="mt-3 text-base">{title}</h3>
                 <p className="mt-2 text-sm text-white/55">{desc}</p>

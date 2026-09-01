@@ -29,7 +29,7 @@ export default function ServicesPage() {
             <Reveal key={s.key}>
               <article
                 id={s.key}
-                className="glass-panel glass-sheen grid scroll-mt-24 gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.25fr]"
+                className="glass-panel glass-sheen shine grid scroll-mt-24 gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.25fr]"
               >
                 <div>
                   <div className="flex items-center gap-3">

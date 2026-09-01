@@ -5,7 +5,7 @@ import { mkdir } from 'node:fs/promises';
 
 const SRC = 'assets/Logo-sphere.jpg'; // PNG transparent 1024×1024
 const OUT = 'public';
-const NAVY = { r: 11, g: 17, b: 32, alpha: 1 }; // #0B1120
+const NAVY = { r: 5, g: 11, b: 43, alpha: 1 }; // #050B2B
 
 await mkdir(OUT, { recursive: true });
 
@@ -51,10 +51,10 @@ const textOg = Buffer.from(`
     <defs>
       <radialGradient id="halo" cx="30%" cy="35%" r="60%">
         <stop offset="0%" stop-color="#5B3DF6" stop-opacity="0.35"/>
-        <stop offset="100%" stop-color="#0B1120" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#050B2B" stop-opacity="0"/>
       </radialGradient>
     </defs>
-    <rect width="${OG_W}" height="${OG_H}" fill="#0B1120"/>
+    <rect width="${OG_W}" height="${OG_H}" fill="#050B2B"/>
     <rect width="${OG_W}" height="${OG_H}" fill="url(#halo)"/>
     <text x="560" y="300" font-family="Poppins, Arial, sans-serif" font-size="72" font-weight="700" fill="#FFFFFF">SphereWeb</text>
     <text x="560" y="360" font-family="Inter, Arial, sans-serif" font-size="30" fill="#22D3EE">Développeur web freelance fullstack</text>

@@ -29,7 +29,7 @@ export default function PortfolioPage() {
             <Link
               key={p.slug}
               href={`/portfolio/${p.slug}`}
-              className="group glass-panel flex flex-col"
+              className="group glass-panel shine flex flex-col"
             >
               <ProjectThumb project={p} className="mb-5" />
               <div className="flex items-start justify-between gap-4">

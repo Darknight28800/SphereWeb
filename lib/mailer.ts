@@ -65,7 +65,7 @@ export async function sendContactEmail(data: ContactPayload) {
     .join('\n');
 
   const html = `
-    <h2 style="font-family:Arial,sans-serif;color:#0B1120">Nouveau message — ${HOST}</h2>
+    <h2 style="font-family:Arial,sans-serif;color:#050B2B">Nouveau message — ${HOST}</h2>
     <table style="font-family:Arial,sans-serif;font-size:14px;color:#1F2937;border-collapse:collapse">
       <tr><td style="padding:4px 12px 4px 0"><strong>Nom</strong></td><td>${escapeHtml(name)}</td></tr>
       <tr><td style="padding:4px 12px 4px 0"><strong>E-mail</strong></td><td>${escapeHtml(email)}</td></tr>

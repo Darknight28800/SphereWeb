@@ -15,7 +15,7 @@ export default function CtaBand({
     <section className="relative overflow-hidden border-t border-white/10 bg-navy py-16 sm:py-24">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
       <div className="container-page relative">
-        <div className="glass glass-sheen relative overflow-hidden p-8 sm:p-12">
+        <div className="glass glass-sheen shine shine-loop relative overflow-hidden p-8 sm:p-12">
           <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
               <p className="eyebrow mb-4">

@@ -88,7 +88,7 @@ export default function AboutPage() {
         <SectionHeading index="02" eyebrow="Méthode" title="Comment je travaille" />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {values.map(([title, desc]) => (
-            <div key={title} className="glass-panel glass-sheen">
+            <div key={title} className="glass-panel glass-sheen shine">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Icon name="check" />
               </span>

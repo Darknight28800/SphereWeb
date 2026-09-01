@@ -7,9 +7,9 @@ const config: Config = {
       colors: {
         // Palette officielle — Charte SphereWeb v2.0 (§2.1)
         navy: {
-          DEFAULT: '#0B1120', // Fond principal, header, footer
-          800: '#111a2e',
-          700: '#1b2740',
+          DEFAULT: '#050B2B', // Fond principal — bleu profond (aligné portfolio)
+          800: '#0A1238', // Surfaces surélevées
+          700: '#141D52', // Bordures / survols
         },
         brand: {
           DEFAULT: '#5B3DF6', // Violet-indigo — boutons, liens, titres

@@ -352,6 +352,14 @@
   background: linear-gradient(90deg, #22d3ee, #5b3df6);
   will-change: transform;
 }
+.intro__count {
+  margin-top: 0.6rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  color: #22d3ee;
+  font-variant-numeric: tabular-nums;
+}
 
 /* Bouton passer */
 .intro__skip {

@@ -44,6 +44,7 @@ export default function IntroLoader() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sphereRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLParagraphElement>(null);
   const doneRef = useRef(false);
   const hudOnRef = useRef(false);
   const revealFnRef = useRef<() => void>(() => {});
@@ -171,6 +172,7 @@ export default function IntroLoader() {
           setHudOn(true);
         }
         if (barRef.current) barRef.current.style.transform = `scaleX(${p.toFixed(3)})`;
+        if (countRef.current) countRef.current.textContent = `${Math.round(clamp01(p) * 100)} %`;
       } else if (phase === 'accelerate') {
         const p = (t - BOUND.accelerate[0]) / PHASE.accelerate;
         speed = SPEED * 1.2 * easeIn(p);
@@ -248,10 +250,13 @@ export default function IntroLoader() {
       </div>
 
       <div className={`intro__hud ${hudOn ? 'intro__hud--on' : ''}`}>
-        <p className="intro__hud-label">Retour en hyper-espace</p>
+        <p className="intro__hud-label">Bienvenue au cœur du web</p>
         <div className="intro__bar">
           <div ref={barRef} className="intro__bar-fill" />
         </div>
+        <p ref={countRef} className="intro__count">
+          0&nbsp;%
+        </p>
       </div>
 
       <button type="button" className="intro__skip" onClick={() => revealFnRef.current()}>

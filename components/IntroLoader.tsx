@@ -48,6 +48,7 @@ export default function IntroLoader() {
   const revealFnRef = useRef<() => void>(() => {});
   hudOnRef.current = hudOn;
 
+  /* Décide si l'intro doit jouer (une fois par session) */
   useEffect(() => {
     let played = true;
     try {
@@ -64,10 +65,12 @@ export default function IntroLoader() {
     } catch {
       /* ignore */
     }
-
     setActive(true);
+  }, []);
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Déroule la séquence une fois le canvas monté */
+  useEffect(() => {
+    if (!active) return;
 
     /* --- Fin de l'intro : révèle la page --- */
     const reveal = () => {
@@ -83,14 +86,19 @@ export default function IntroLoader() {
     };
     revealFnRef.current = reveal;
 
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
       const id = window.setTimeout(reveal, 500);
       return () => clearTimeout(id);
     }
 
     /* --- Canvas hyper-espace --- */
-    const canvas = canvasRef.current!;
-    const ctx = canvas.getContext('2d')!;
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) {
+      const id = window.setTimeout(reveal, 500);
+      return () => clearTimeout(id);
+    }
     const dpr = Math.min(2, window.devicePixelRatio || 1);
     let w = 0;
     let h = 0;
@@ -222,7 +230,7 @@ export default function IntroLoader() {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
     };
-  }, []);
+  }, [active]);
 
   if (!active) return null;
 

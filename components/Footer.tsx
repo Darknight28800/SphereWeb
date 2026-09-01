@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Logo from './Logo';
 import Icon from './Icon';
-import { nav, site } from '@/lib/site';
+import { nav, partner, site } from '@/lib/site';
 
 const colLabel = 'font-mono text-xs uppercase tracking-[0.2em] text-white/40';
 
@@ -47,6 +48,15 @@ export default function Footer() {
                   {site.email}
                 </a>
               </li>
+              <li>
+                <a
+                  href={`mailto:${partner.emailHref}`}
+                  className="inline-flex items-center gap-2 text-white/60 transition-colors hover:text-accent"
+                >
+                  <Icon name="mail" className="h-4 w-4" />
+                  {partner.email}
+                </a>
+              </li>
               <li className="inline-flex items-center gap-2 text-white/60">
                 <Icon name="map-pin" className="h-4 w-4" />
                 {site.location}
@@ -55,7 +65,30 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        {/* Partenariat — ligne de séparation ; logo à la suite de la phrase.
+            z-31 + fond opaque : les particules passent derrière. */}
+        <div className="relative z-[31] mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/10 pt-8">
+          <span className={colLabel}>En partenariat avec</span>
+          <a
+            href={partner.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2.5 rounded-lg border border-white/10 bg-navy-800 px-3.5 py-2 transition-colors hover:border-accent/40"
+          >
+            <Image
+              src={partner.logo}
+              alt={partner.name}
+              width={150}
+              height={24}
+              unoptimized
+              className="h-6 w-auto"
+            />
+            <span className="sr-only">{partner.name}</span>
+            <Icon name="external" className="h-3.5 w-3.5 text-white/35" />
+          </a>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.name} — {site.legalName}
           </p>

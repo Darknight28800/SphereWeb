@@ -22,6 +22,20 @@ export const site = {
   },
 } as const;
 
+/**
+ * Partenaire affiché dans le pied de page.
+ * Remplacer `logo` par le fichier définitif dans public/partners/.
+ */
+export const partner = {
+  name: 'ARTNumérique',
+  url: 'https://www.xn--artnumrique-gbb.fr',
+  logo: '/partners/artnumerique.svg',
+  contactName: 'Renaud Vaillant',
+  // Affichage en unicode, href en punycode pour la compatibilité des clients mail.
+  email: 'renaud.vaillant@artnumérique.fr',
+  emailHref: 'renaud.vaillant@xn--artnumrique-gbb.fr',
+} as const;
+
 export type ServiceKey = 'sites-vitrines' | 'applications-sur-mesure' | 'maintenance';
 
 export interface Service {

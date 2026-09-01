@@ -30,7 +30,7 @@ const BOUND: Record<string, [number, number]> = (() => {
 const SPEED = 0.7; // vitesse de croisière (unités de profondeur / s)
 const REHYPER_FADE = 1500; // ms de fondu des traits en fin d'hyper-espace
 const REVEAL_MS = 1400; // durée d'apparition de la page
-const SPHERE_FADE = 0.32; // fraction de la phase d'accélération pour estomper la sphère
+const SPHERE_ZOOM = 55; // facteur d'agrandissement de la sphère pendant l'accélération
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const easeIn = (t: number) => t * t * t;
@@ -174,9 +174,9 @@ export default function IntroLoader() {
       } else if (phase === 'accelerate') {
         const p = (t - BOUND.accelerate[0]) / PHASE.accelerate;
         speed = SPEED * 1.2 * easeIn(p);
-        /* La sphère fonce vers l'écran et s'estompe vite (sur SPHERE_FADE de la phase) */
-        const fade = easeIn(clamp01(p / SPHERE_FADE));
-        setSphere(1 + easeIn(p) * 26, 1 - fade);
+        /* Zoom jusqu'à couvrir toute la page ; fondu progressif sur toute la phase */
+        const k = easeIn(p);
+        setSphere(1 + k * SPHERE_ZOOM, 1 - k);
         if (hudShown && hudOnRef.current) {
           setHudOn(false);
         }

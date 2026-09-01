@@ -40,11 +40,21 @@ const config: Config = {
         spin: {
           to: { transform: 'rotate(360deg)' },
         },
+        breathe: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.055)' },
+        },
+        glow: {
+          '0%, 100%': { opacity: '0.45', transform: 'scale(0.9)' },
+          '50%': { opacity: '1', transform: 'scale(1.1)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.5s ease-out both',
         'spin-slow': 'spin 28s linear infinite',
         'spin-reverse': 'spin 90s linear infinite reverse',
+        breathe: 'breathe 2s ease-in-out infinite',
+        glow: 'glow 2s ease-in-out infinite',
       },
     },
   },

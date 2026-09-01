@@ -29,7 +29,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-white/10 bg-navy">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-blueprint opacity-60" />
-        <div className="container-page relative grid gap-14 py-20 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-28">
+        <div className="container-page relative grid gap-10 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:py-28">
           <div className="animate-fade-up">
             <p className="eyebrow mb-6">
               <span className="text-white/30">00</span>
@@ -70,7 +70,7 @@ export default function HomePage() {
             </dl>
           </div>
 
-          <HeroSphere className="hidden lg:block" />
+          <HeroSphere className="w-3/4 max-w-[260px] sm:max-w-[320px] lg:w-full lg:max-w-[480px]" />
         </div>
       </section>
 

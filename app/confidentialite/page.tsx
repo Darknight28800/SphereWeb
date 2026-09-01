@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Politique de confidentialité',
   description:
-    'Comment sont traitées les données personnelles collectées sur sphere-web.com, conformément au RGPD.',
+    'Comment sont traitées les données personnelles collectées sur sphereweb-dev.com, conformément au RGPD.',
   path: '/confidentialite',
   noindex: true,
 });
@@ -47,9 +47,9 @@ export default function PrivacyPage() {
 
         <h2>3. Destinataires</h2>
         <p>
-          Les données sont adressées uniquement à {site.legalName}. Elles transitent par le service
-          d&apos;envoi d&apos;e-mails et l&apos;hébergement fournis par IONOS (Union européenne).
-          Aucune donnée n&apos;est vendue ni transmise à des fins publicitaires.
+          Les données sont adressées uniquement à {site.legalName}. Elles transitent par
+          l&apos;hébergeur du site (Hostinger) et par le serveur SMTP de la boîte e-mail
+          professionnelle. Aucune donnée n&apos;est vendue ni transmise à des fins publicitaires.
         </p>
 
         <h2>4. Mesure d&apos;audience</h2>

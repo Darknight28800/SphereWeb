@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "Le message n'a pas pu être envoyé pour le moment. Vous pouvez m'écrire directement à david.antoina@sphere-web.com.",
+          "Le message n'a pas pu être envoyé pour le moment. Vous pouvez m'écrire directement à david-antoina@sphereweb-dev.com.",
       },
       { status: 502 },
     );

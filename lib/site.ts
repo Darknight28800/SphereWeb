@@ -6,8 +6,9 @@ export const site = {
   legalName: 'David Antoina',
   role: 'Développeur freelance fullstack',
   baseline: 'SphereWeb, le centre de gravité de votre projet web.',
-  url: 'https://sphere-web.com',
-  email: 'david.antoina@sphere-web.com',
+  // Domaine officiel retenu (postérieur à la charte, qui mentionnait sphere-web.com).
+  url: 'https://sphereweb-dev.com',
+  email: 'david-antoina@sphereweb-dev.com',
   location: 'Eure-et-Loir (28)',
   status: 'Micro-entrepreneur',
   // Profils plateformes — liens à compléter quand disponibles (Charte §3.4).

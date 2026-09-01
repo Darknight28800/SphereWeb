@@ -6,9 +6,13 @@ Site vitrine de **SphereWeb**, la marque de David Antoina, développeur freelanc
 > « SphereWeb, le centre de gravité de votre projet web. »
 
 Référence du projet : [`docs/Charte_SphereWeb.docx`](docs/Charte_SphereWeb.docx) (v2.0 — Août 2026).
-La charte prévoyait React + Vite ; le projet est finalement bâti sur **Next.js** (décision
-postérieure à la charte). L'« API interne Node/Express » du formulaire de contact est réalisée
-par une **Route Handler Next** (`app/api/contact/route.ts`).
+
+Décisions postérieures à la charte :
+- **Next.js** (la charte prévoyait React + Vite). L'« API interne Node/Express » du formulaire
+  de contact est une **Route Handler Next** (`app/api/contact/route.ts`).
+- Domaine officiel : **`sphereweb-dev.com`** (la charte mentionnait `sphere-web.com`).
+- Hébergement : **Hostinger** mutualisé Business avec application Node.js (la charte mentionnait IONOS).
+- E-mail de contact : `david-antoina@sphereweb-dev.com`.
 
 ## Stack
 
@@ -18,8 +22,8 @@ par une **Route Handler Next** (`app/api/contact/route.ts`).
 | Style | Tailwind CSS (palette et typo de la charte) |
 | Polices | `next/font` — Poppins (titres), Inter (texte), JetBrains Mono (code) |
 | SEO | Metadata API, `app/sitemap.ts`, `app/robots.ts` |
-| Formulaire contact | Route Handler `app/api/contact` → nodemailer → SMTP IONOS |
-| Hébergement | IONOS (offre Node.js) ou Vercel — domaine `sphere-web.com` |
+| Formulaire contact | Route Handler `app/api/contact` → nodemailer → SMTP |
+| Hébergement | Hostinger mutualisé (Business) avec application Node.js — domaine `sphereweb-dev.com` |
 
 ## Arborescence
 
@@ -54,7 +58,7 @@ Prérequis : Node.js ≥ 20.
 ```bash
 npm install
 
-# Config e-mail : copier et renseigner les identifiants SMTP IONOS
+# Config e-mail : copier et renseigner les identifiants SMTP
 cp .env.example .env.local
 
 npm run dev      # http://localhost:3000
@@ -64,23 +68,32 @@ npm run dev      # http://localhost:3000
 
 ```bash
 npm run build
-npm run start    # sert le build en local
+npm run start    # sert le build en local (http://localhost:3000)
 ```
 
-Le formulaire de contact nécessite un runtime Node (route dynamique). Déploiement :
+Le formulaire de contact nécessite un runtime Node (route `/api/contact` dynamique) :
+un export 100 % statique n'est donc pas possible tel quel.
 
-- **Vercel** : import du repo, renseigner les variables SMTP dans le dashboard.
-- **IONOS (offre Node.js)** : `npm ci && npm run build && npm run start`, variables d'environnement
-  définies côté hébergeur, reverse-proxy vers le port de `next start`.
+### Hostinger (mutualisé Business — application Node.js)
 
-Un export 100 % statique n'est pas possible tel quel à cause de la route `/api/contact`
-(il faudrait déléguer l'envoi à un service tiers).
+`next.config.mjs` active `output: 'standalone'` : `next build` produit un serveur autonome
+dans `.next/standalone/`.
+
+1. hPanel → **Site web → Avancé → Node.js** : créer l'application (version Node ≥ 20),
+   dossier applicatif = racine du projet, fichier de démarrage = `server.js`
+   (celui de `.next/standalone/`, à copier à la racine applicative lors du déploiement).
+2. Déployer les fichiers (Git ou SFTP) : le dossier `.next/standalone/` **plus**
+   `.next/static/` (à placer dans `.next/static/`) et `public/`.
+3. Renseigner les variables d'environnement (`SMTP_*`, `MAIL_*`) dans l'interface Node.js de hPanel.
+4. Redémarrer l'application depuis hPanel.
+
+> Alternative de déploiement : builder en CI, puis `rsync` de `.next/standalone` + `.next/static` + `public`.
 
 ## Variables d'environnement
 
 | Variable | Rôle |
 |---|---|
-| `SMTP_HOST` `SMTP_PORT` `SMTP_SECURE` | Serveur SMTP IONOS (`smtp.ionos.fr`, 587, `false`) |
+| `SMTP_HOST` `SMTP_PORT` `SMTP_SECURE` | Serveur SMTP de la boîte (`smtp.hostinger.com`, 465, `true` si e-mail Hostinger) |
 | `SMTP_USER` `SMTP_PASS` | Identifiants de la boîte mail |
 | `MAIL_FROM` `MAIL_TO` | Expéditeur / destinataire des messages du formulaire |
 
@@ -89,7 +102,7 @@ Un export 100 % statique n'est pas possible tel quel à cause de la route `/api/
 - [ ] Logo SVG définitif (versions claire / foncée) + favicons PNG (`favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`) et `og-image.png` dans `public/`
 - [ ] Mentions légales : adresse, SIRET, TVA (`app/mentions-legales/page.tsx`)
 - [ ] Confidentialité : durée de conservation, outil de mesure d'audience retenu
-- [ ] Identifiants SMTP IONOS (`.env.local` / hébergeur)
+- [ ] Identifiants SMTP de la boîte `david-antoina@sphereweb-dev.com` (`.env.local` / hPanel Hostinger)
 - [ ] Liens profils Malt / Codeur.com (`lib/site.ts`)
 - [ ] Captures d'écran des projets du portfolio
 - [ ] Page CGV si devis / paiements en ligne (Charte §4)

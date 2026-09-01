@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Build autonome : .next/standalone/server.js contient tout le nécessaire
+  // pour lancer le site sur l'hébergement Node.js Hostinger (Passenger).
+  output: 'standalone',
   async headers() {
     return [
       {

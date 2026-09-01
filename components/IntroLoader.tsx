@@ -5,13 +5,13 @@ import Image from 'next/image';
 
 const KEY = 'sw-intro-played';
 
-/* Durées des phases en millisecondes — ajustables librement */
+/* Durées des phases en millisecondes — ajustables librement (total ≈ 20 s) */
 const PHASE = {
-  cruise: 10_000, // 1. en hyper-espace
-  decelerate: 5_000, // 2. décélération — la sphère se rapproche
-  hold: 4_500, // 3. sphère au centre (rotation 35 s, zoom/dézoom 3 s) + barre
-  accelerate: 5_000, // 4. ré-accélération — les étoiles s'étirent
-  rehyperspace: 8_000, // 5. hyper-espace ; les traits s'estompent sur la fin
+  cruise: 6_000, // 1. en hyper-espace
+  decelerate: 3_000, // 2. décélération — la sphère se rapproche
+  hold: 3_000, // 3. sphère au centre (rotation 35 s, zoom/dézoom 3 s) + barre
+  accelerate: 3_000, // 4. ré-accélération — les étoiles s'étirent
+  rehyperspace: 3_600, // 5. hyper-espace ; les traits s'estompent sur la fin
 } as const;
 
 type Phase = 'cruise' | 'decelerate' | 'hold' | 'accelerate' | 'rehyperspace' | 'reveal';
@@ -28,8 +28,9 @@ const BOUND: Record<string, [number, number]> = (() => {
   return b;
 })();
 const SPEED = 0.7; // vitesse de croisière (unités de profondeur / s)
-const REHYPER_FADE = 2400; // ms de fondu des traits en fin d'hyper-espace
+const REHYPER_FADE = 1500; // ms de fondu des traits en fin d'hyper-espace
 const REVEAL_MS = 1400; // durée d'apparition de la page
+const SPHERE_FADE = 0.32; // fraction de la phase d'accélération pour estomper la sphère
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const easeIn = (t: number) => t * t * t;
@@ -173,7 +174,9 @@ export default function IntroLoader() {
       } else if (phase === 'accelerate') {
         const p = (t - BOUND.accelerate[0]) / PHASE.accelerate;
         speed = SPEED * 1.2 * easeIn(p);
-        setSphere(1 + easeIn(p) * 24, 1 - easeIn(p));
+        /* La sphère fonce vers l'écran et s'estompe vite (sur SPHERE_FADE de la phase) */
+        const fade = easeIn(clamp01(p / SPHERE_FADE));
+        setSphere(1 + easeIn(p) * 26, 1 - fade);
         if (hudShown && hudOnRef.current) {
           setHudOn(false);
         }

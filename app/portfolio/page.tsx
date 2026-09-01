@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
+import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -29,6 +30,7 @@ export default function PortfolioPage() {
               href={`/portfolio/${p.slug}`}
               className="group card flex flex-col hover:border-brand/40"
             >
+              <ProjectThumb project={p} className="mb-5" />
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-xl">{p.name}</h2>

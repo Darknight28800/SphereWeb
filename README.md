@@ -41,7 +41,8 @@ SphereWeb/
 │  ├─ api/contact/route.ts  API du formulaire (validation zod + anti-spam + e-mail)
 │  ├─ sitemap.ts / robots.ts
 │  └─ not-found.tsx
-├─ components/              Header, Footer, Logo, Icon, Section, CtaBand, ContactForm, CookieConsent, LegalDoc
+├─ components/              Header, Footer, Logo, Icon, Section, CtaBand, ContactForm, ProjectMedia, LegalDoc
+├─ scripts/gen-icons.mjs    Génération du jeu d'icônes + image OG (sharp)
 ├─ lib/
 │  ├─ site.ts               Contenu éditorial (source unique — textes, services, projets)
 │  ├─ seo.ts                Fabrique de metadata par page
@@ -97,14 +98,21 @@ dans `.next/standalone/`.
 | `SMTP_USER` `SMTP_PASS` | Identifiants de la boîte mail |
 | `MAIL_FROM` `MAIL_TO` | Expéditeur / destinataire des messages du formulaire |
 
+## Icônes de marque
+
+Source : `assets/Logo-sphere.jpg` (PNG transparent 1024²), plus `assets/favicon.ico`.
+`npm run icons` régénère `public/` : `favicon-16/32`, `apple-touch-icon`, `icon-192/512`, `og-image`.
+
 ## À compléter avant mise en production
 
-- [ ] Logo SVG définitif (versions claire / foncée) + favicons PNG (`favicon-32.png`, `favicon-192.png`, `favicon-512.png`, `apple-touch-icon.png`) et `og-image.png` dans `public/`
-- [ ] Mentions légales : adresse, SIRET, TVA (`app/mentions-legales/page.tsx`)
-- [ ] Confidentialité : durée de conservation, outil de mesure d'audience retenu
+- [x] ~~Logo + favicons~~ (fournis, `public/` généré via `npm run icons`)
+- [x] ~~Mentions légales : SIRET, TVA~~ (adresse postale : sur demande, cf. page)
+- [x] ~~Confidentialité : durée de conservation~~ (3 ans ; aucun analytics pour l'instant)
 - [ ] Identifiants SMTP de la boîte `david-antoina@sphereweb-dev.com` (`.env.local` / hPanel Hostinger)
-- [ ] Liens profils Malt / Codeur.com (`lib/site.ts`)
-- [ ] Captures d'écran des projets du portfolio
+- [ ] Liens profils Malt / Codeur.com (`lib/site.ts` → `site.profiles`)
+- [ ] Captures d'écran des projets du portfolio (`public/portfolio/<slug>/`, cf. son README)
+- [ ] URL publiques des projets en ligne (`lib/site.ts` → `project.url`)
 - [ ] Page CGV si devis / paiements en ligne (Charte §4)
-- [ ] Brancher l'outil de mesure d'audience sur le consentement (`components/CookieConsent.tsx` → `hasAnalyticsConsent()`)
+- [ ] Adresse postale complète dans les mentions légales si tu préfères l'afficher
+- [ ] Éventuel outil d'audience sans cookie (Plausible / Matomo) — à décider
 - [ ] Rate-limiting partagé (Redis/Upstash) si déploiement multi-instances (`app/api/contact/route.ts`)

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
+import { ProjectGallery } from '@/components/ProjectMedia';
 import { Section } from '@/components/Section';
 import { projects } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -70,24 +71,20 @@ export default async function ProjectDetailPage({
               </span>
             )}
           </div>
+          {project.url && (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:gap-2.5"
+            >
+              Voir le projet en ligne
+              <Icon name="external" className="h-4 w-4" />
+            </a>
+          )}
         </header>
 
-        {/* Visuel — placeholder en attendant les captures d'écran (Charte §5) */}
-        <div
-          className="mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-navy-800"
-          role="img"
-          aria-label={`Aperçu du projet ${project.name} — capture à venir`}
-        >
-          <div
-            className="flex h-full w-full items-center justify-center"
-            style={{
-              background:
-                'radial-gradient(50% 50% at 50% 40%, rgba(91,61,246,0.25), transparent 70%)',
-            }}
-          >
-            <span className="font-mono text-sm text-white/30">Capture d&apos;écran à venir</span>
-          </div>
-        </div>
+        <ProjectGallery project={project} />
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2">
           <div>

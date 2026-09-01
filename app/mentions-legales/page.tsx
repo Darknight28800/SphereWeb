@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Section } from '@/components/Section';
-import { LegalDoc, Placeholder } from '@/components/LegalDoc';
+import { LegalDoc } from '@/components/LegalDoc';
 import { site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -22,22 +22,22 @@ export default function LegalNoticePage() {
           nom commercial «&nbsp;{site.name}&nbsp;».
         </p>
         <ul>
-          <li>Statut : {site.status}</li>
+          <li>Statut : {site.status} (entreprise individuelle)</li>
           <li>
-            Adresse : <Placeholder>adresse de l&apos;entreprise</Placeholder>
+            Siège : {site.location}. Adresse postale complète communiquée sur demande à{' '}
+            <a href={`mailto:${site.email}`}>{site.email}</a>.
           </li>
-          <li>
-            SIRET : <Placeholder>numéro SIRET</Placeholder>
-          </li>
-          <li>
-            N° TVA intracommunautaire :{' '}
-            <Placeholder>le cas échéant / «&nbsp;TVA non applicable, art. 293 B du CGI&nbsp;»</Placeholder>
-          </li>
+          <li>SIRET : {site.siret}</li>
+          <li>TVA : {site.vat}</li>
           <li>
             E-mail : <a href={`mailto:${site.email}`}>{site.email}</a>
           </li>
           <li>Directeur de la publication : {site.legalName}</li>
         </ul>
+        <p className="text-sm text-white/45">
+          Conformément à l&apos;article R.123-237 du Code de commerce, l&apos;adresse postale du siège
+          est fournie à toute personne qui en fait la demande.
+        </p>
 
         <h2>2. Hébergement</h2>
         <p>

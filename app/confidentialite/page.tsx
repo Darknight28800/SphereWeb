@@ -1,5 +1,5 @@
 import { Section } from '@/components/Section';
-import { LegalDoc, Placeholder } from '@/components/LegalDoc';
+import { LegalDoc } from '@/components/LegalDoc';
 import { site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -40,9 +40,8 @@ export default function PrivacyPage() {
           <strong>Base légale :</strong> votre consentement (case à cocher) et l&apos;intérêt légitime
           à répondre à une sollicitation commerciale.
           <br />
-          <strong>Durée de conservation :</strong> les messages sont conservés{' '}
-          <Placeholder>durée retenue, ex. 3 ans après le dernier contact</Placeholder>, puis
-          supprimés.
+          <strong>Durée de conservation :</strong> les messages sont conservés {site.contactRetention},
+          puis supprimés.
         </p>
 
         <h2>3. Destinataires</h2>
@@ -52,23 +51,20 @@ export default function PrivacyPage() {
           professionnelle. Aucune donnée n&apos;est vendue ni transmise à des fins publicitaires.
         </p>
 
-        <h2>4. Mesure d&apos;audience</h2>
+        <h2>4. Cookies et mesure d&apos;audience</h2>
         <p>
-          Aucun outil de mesure d&apos;audience n&apos;est activé sans votre consentement, recueilli
-          via le bandeau affiché lors de votre première visite. En cas de refus, aucun traceur de
-          mesure n&apos;est déposé. L&apos;outil éventuellement utilisé sera{' '}
-          <Placeholder>nom de l&apos;outil, ex. Matomo / Plausible</Placeholder>, configuré pour
-          anonymiser les adresses IP.
+          Ce site ne dépose <strong>aucun cookie</strong> et n&apos;utilise{' '}
+          <strong>aucun outil de mesure d&apos;audience</strong> ni traceur publicitaire. Aucune
+          bannière de consentement n&apos;est donc nécessaire.
+        </p>
+        <p>
+          Si un outil de statistiques respectueux de la vie privée était ajouté à l&apos;avenir
+          (par exemple Plausible ou Matomo, sans cookie et avec anonymisation des adresses IP), cette
+          politique serait mise à jour en conséquence et, le cas échéant, votre consentement serait
+          recueilli au préalable.
         </p>
 
-        <h2>5. Cookies</h2>
-        <p>
-          Le site dépose uniquement un indicateur technique enregistrant votre choix concernant la
-          mesure d&apos;audience (stockage local du navigateur). Il ne permet aucun suivi
-          publicitaire.
-        </p>
-
-        <h2>6. Vos droits</h2>
+        <h2>5. Vos droits</h2>
         <p>
           Vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement, de
           limitation et d&apos;opposition, ainsi que du droit de retirer votre consentement à tout
@@ -82,7 +78,7 @@ export default function PrivacyPage() {
           .
         </p>
 
-        <h2>7. Sécurité</h2>
+        <h2>6. Sécurité</h2>
         <p>
           Les échanges avec le site sont chiffrés (HTTPS). L&apos;accès aux messages reçus est
           protégé par authentification.

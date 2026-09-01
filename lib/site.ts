@@ -11,6 +11,10 @@ export const site = {
   email: 'david-antoina@sphereweb-dev.com',
   location: 'Eure-et-Loir (28)',
   status: 'Micro-entrepreneur',
+  siret: '10673178900017',
+  vat: 'TVA non applicable, art. 293 B du CGI',
+  // Durée de conservation des messages du formulaire de contact.
+  contactRetention: '3 ans à compter du dernier échange',
   // Profils plateformes — liens à compléter quand disponibles (Charte §3.4).
   profiles: {
     malt: '',
@@ -80,6 +84,12 @@ export const services: Service[] = [
   },
 ];
 
+export interface ProjectImage {
+  /** Chemin depuis /public — déposer les fichiers dans public/portfolio/<slug>/. */
+  src: string;
+  alt: string;
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -91,7 +101,14 @@ export interface Project {
   context: string;
   solution: string;
   highlights: string[];
+  /** Lien public du projet (affiché s'il est renseigné). */
   url?: string;
+  /**
+   * Captures d'écran. Laisser vide tant qu'elles ne sont pas prêtes :
+   * un visuel de remplacement s'affiche automatiquement.
+   * Convention : public/portfolio/<slug>/01.png, 02.png, …
+   */
+  images?: ProjectImage[];
 }
 
 export const projects: Project[] = [
@@ -111,6 +128,11 @@ export const projects: Project[] = [
       'Fiches artisans détaillées',
       'Formulaire de contact vers l’artisan',
     ],
+    // url: 'https://…',
+    // images: [
+    //   { src: '/portfolio/trouve-ton-artisan/01.png', alt: 'Page d’accueil de Trouve Ton Artisan' },
+    //   { src: '/portfolio/trouve-ton-artisan/02.png', alt: 'Résultats de recherche filtrés' },
+    // ],
   },
   {
     slug: 'tpak',

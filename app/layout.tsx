@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import IntroLoader from '@/components/IntroLoader';
+import ParticleField from '@/components/ParticleField';
 import { site } from '@/lib/site';
 
 /**
@@ -60,6 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script dangerouslySetInnerHTML={{ __html: introGuard }} />
         <IntroLoader />
+        <ParticleField />
         <div id="app-shell" className="flex min-h-screen flex-col">
           <Header />
           <main id="contenu" className="flex-1">

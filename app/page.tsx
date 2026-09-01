@@ -28,7 +28,6 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-white/10 bg-navy">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-blueprint opacity-60" />
         <div className="container-page relative grid gap-10 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:py-28">
           <div className="animate-fade-up">
             <p className="eyebrow mb-6">

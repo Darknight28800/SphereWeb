@@ -223,12 +223,13 @@
   }
 }
 
+
 /* ======================================================================
-   Intro « hyper-espace » — cache instantané + animation d'entrée.
-   Le composant : components/IntroLoader.tsx
+   Intro cinématique « hyper-espace ».  Composant : components/IntroLoader.tsx
+   Fond noir (espace) ; le canvas dessine les traits d'étoiles.
    ====================================================================== */
 
-/* Cache navy peint avant même l'hydratation (script inline dans layout) */
+/* Cache noir peint avant l'hydratation (script inline dans le layout) */
 :root[data-intro='1'] body {
   overflow: hidden;
 }
@@ -237,205 +238,150 @@
   position: fixed;
   inset: 0;
   z-index: 9998;
-  background: #050b2b;
+  background: #03040c;
+}
+
+/* Page d'accueil masquée pendant l'intro, puis apparition en fondu */
+:root[data-intro='1'] #app-shell {
+  opacity: 0;
+}
+:root[data-intro-reveal='1'] #app-shell {
+  animation: intro-page-in 1.4s ease forwards;
+}
+@keyframes intro-page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .intro {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: grid;
-  place-items: center;
   overflow: hidden;
-  background: #050b2b;
-  transition: opacity 0.42s ease;
+  background: #03040c;
+  transition: opacity 1.3s ease;
 }
-
-.intro--done {
+.intro--reveal {
   opacity: 0;
   pointer-events: none;
 }
 
-/* --- Champ d'étoiles / traits d'hyper-espace --- */
-.intro__stars {
+.intro__canvas {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.intro__star {
+/* Sphère de marque (positionnée/échelonnée en JS via le wrapper) */
+.intro__sphere-wrap {
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 2px;
-  width: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(180, 220, 255, 0.95));
-  opacity: 0.3;
-  transform: translate(-50%, -50%) rotate(var(--a)) translateX(var(--o));
-}
-
-.intro--loading .intro__star {
-  animation: intro-twinkle 1.7s ease-in-out infinite var(--delay);
-}
-
-.intro--warp .intro__star,
-.intro--flash .intro__star,
-.intro--done .intro__star {
-  animation: intro-streak 0.72s cubic-bezier(0.7, 0, 0.84, 0) var(--delay) forwards;
-}
-
-@keyframes intro-twinkle {
-  0%,
-  100% {
-    opacity: 0.15;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes intro-streak {
-  0% {
-    width: 3px;
-    opacity: 0.55;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    width: 78vmax;
-    opacity: 0;
-    transform: translate(-50%, -50%) rotate(var(--a)) translateX(88vmax);
-  }
-}
-
-/* --- Sphère + anneau de chargement --- */
-.intro__core {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-
-.intro__sphere {
-  filter: drop-shadow(0 0 42px rgba(91, 61, 246, 0.6));
-  animation: intro-bob 2.6s ease-in-out infinite;
-}
-
-.intro--warp .intro__sphere,
-.intro--flash .intro__sphere,
-.intro--done .intro__sphere {
-  animation: intro-jump 0.7s ease-in forwards;
-}
-
-@keyframes intro-bob {
-  0%,
-  100% {
-    transform: translateY(-4px) scale(1);
-  }
-  50% {
-    transform: translateY(4px) scale(1.03);
-  }
-}
-
-@keyframes intro-jump {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  55% {
-    opacity: 1;
-  }
-  100% {
-    transform: scale(17);
-    opacity: 0;
-    filter: drop-shadow(0 0 140px rgba(123, 98, 248, 0.9)) blur(5px);
-  }
-}
-
-.intro__ring {
-  position: absolute;
-  width: 168%;
+  width: min(38vw, 280px);
   aspect-ratio: 1;
-  border-radius: 9999px;
-  border: 2px solid rgba(255, 255, 255, 0.09);
-  border-top-color: #22d3ee;
-  animation: intro-spin 0.9s linear infinite;
-}
-
-.intro--warp .intro__ring,
-.intro--flash .intro__ring,
-.intro--done .intro__ring {
+  transform: translate(-50%, -50%) scale(0);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  will-change: transform, opacity;
 }
-
+.intro__sphere-spin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  animation:
+    intro-spin 35s linear infinite,
+    intro-breathe 3s ease-in-out infinite;
+}
+.intro__sphere-img {
+  object-fit: contain;
+  filter: drop-shadow(0 0 45px rgba(91, 61, 246, 0.55));
+}
 @keyframes intro-spin {
   to {
     transform: rotate(360deg);
   }
 }
-
-/* --- Libellé --- */
-.intro__label {
-  position: absolute;
-  bottom: 16%;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.42);
-}
-
-.intro__label span {
-  animation: intro-twinkle 1.1s ease-in-out infinite;
-}
-.intro__label span:nth-child(2) {
-  animation-delay: 0.14s;
-}
-.intro__label span:nth-child(3) {
-  animation-delay: 0.28s;
-}
-
-.intro--warp .intro__label,
-.intro--flash .intro__label,
-.intro--done .intro__label {
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-/* --- Flash --- */
-.intro__flash {
-  position: absolute;
-  inset: 0;
-  background: #fff;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.intro--flash .intro__flash {
-  animation: intro-flash 0.55s ease-out forwards;
-}
-
-@keyframes intro-flash {
-  0% {
-    opacity: 0;
-  }
-  16% {
-    opacity: 0.94;
-  }
+@keyframes intro-breathe {
+  0%,
   100% {
-    opacity: 0;
+    transform: scale(1);
   }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+/* Barre de chargement (phase « retour en hyper-espace ») */
+.intro__hud {
+  position: absolute;
+  left: 50%;
+  bottom: 16%;
+  width: min(70vw, 320px);
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.intro__hud--on {
+  opacity: 1;
+}
+.intro__hud-label {
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.intro__bar {
+  margin-top: 0.75rem;
+  height: 2px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.intro__bar-fill {
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, #22d3ee, #5b3df6);
+  will-change: transform;
+}
+
+/* Bouton passer */
+.intro__skip {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.intro__skip:hover {
+  color: #22d3ee;
+  border-color: rgba(34, 211, 238, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .intro__stars,
-  .intro__ring,
-  .intro__flash {
+  .intro__canvas,
+  .intro__sphere-wrap,
+  .intro__hud {
     display: none;
   }
-  .intro__sphere {
-    animation: none;
+  .intro {
+    transition: opacity 0.4s ease;
   }
 }

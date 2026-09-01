@@ -1,29 +1,52 @@
 'use client';
 
-import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 const KEY = 'sw-intro-played';
-const STAR_COUNT = 52;
 
-type Phase = 'loading' | 'warp' | 'flash' | 'done';
+/* Durées des phases en millisecondes — ajustables librement */
+const PHASE = {
+  cruise: 10_000, // 1. en hyper-espace
+  decelerate: 5_000, // 2. décélération — la sphère se rapproche
+  hold: 4_500, // 3. sphère au centre (rotation 35 s, zoom/dézoom 3 s) + barre
+  accelerate: 5_000, // 4. ré-accélération — les étoiles s'étirent
+  rehyperspace: 8_000, // 5. hyper-espace ; les traits s'estompent sur la fin
+} as const;
+
+type Phase = 'cruise' | 'decelerate' | 'hold' | 'accelerate' | 'rehyperspace' | 'reveal';
+const SEQ = ['cruise', 'decelerate', 'hold', 'accelerate', 'rehyperspace'] as const;
+
+/* Bornes cumulées [début, fin] de chaque phase */
+const BOUND: Record<string, [number, number]> = (() => {
+  let acc = 0;
+  const b: Record<string, [number, number]> = {};
+  for (const p of SEQ) {
+    b[p] = [acc, acc + PHASE[p]];
+    acc += PHASE[p];
+  }
+  return b;
+})();
+const SPEED = 0.7; // vitesse de croisière (unités de profondeur / s)
+const REHYPER_FADE = 2400; // ms de fondu des traits en fin d'hyper-espace
+const REVEAL_MS = 1400; // durée d'apparition de la page
+
+const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+const easeIn = (t: number) => t * t * t;
+const clamp01 = (t: number) => Math.min(1, Math.max(0, t));
 
 export default function IntroLoader() {
   const [active, setActive] = useState(false);
-  const [phase, setPhase] = useState<Phase>('loading');
+  const [revealing, setRevealing] = useState(false);
+  const [hudOn, setHudOn] = useState(false);
 
-  const stars = useMemo(
-    () =>
-      Array.from({ length: STAR_COUNT }, (_, i) => {
-        const angle = (i / STAR_COUNT) * 360 + Math.random() * 7 - 3.5;
-        return {
-          angle,
-          delay: Math.random() * 0.22,
-          offset: 46 + Math.random() * 120,
-        };
-      }),
-    [],
-  );
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const sphereRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const doneRef = useRef(false);
+  const hudOnRef = useRef(false);
+  const revealFnRef = useRef<() => void>(() => {});
+  hudOnRef.current = hudOn;
 
   useEffect(() => {
     let played = true;
@@ -36,84 +59,193 @@ export default function IntroLoader() {
       document.documentElement.removeAttribute('data-intro');
       return;
     }
-
     try {
       sessionStorage.setItem(KEY, '1');
     } catch {
       /* ignore */
     }
 
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setActive(true);
 
-    const schedule: [Phase, number][] = reduce
-      ? [['done', 500]]
-      : [
-          ['warp', 900],
-          ['flash', 1620],
-          ['done', 1980],
-        ];
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const ids = schedule.map(([p, t]) => window.setTimeout(() => setPhase(p), t));
+    /* --- Fin de l'intro : révèle la page --- */
+    const reveal = () => {
+      if (doneRef.current) return;
+      doneRef.current = true;
+      document.documentElement.setAttribute('data-intro-reveal', '1');
+      document.documentElement.removeAttribute('data-intro');
+      setRevealing(true);
+      window.setTimeout(() => {
+        setActive(false);
+        document.documentElement.removeAttribute('data-intro-reveal');
+      }, REVEAL_MS + 200);
+    };
+    revealFnRef.current = reveal;
+
+    if (reduce) {
+      const id = window.setTimeout(reveal, 500);
+      return () => clearTimeout(id);
+    }
+
+    /* --- Canvas hyper-espace --- */
+    const canvas = canvasRef.current!;
+    const ctx = canvas.getContext('2d')!;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    let w = 0;
+    let h = 0;
+    let cx = 0;
+    let cy = 0;
+    let fov = 0;
+
+    const resize = () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = w / 2;
+      cy = h / 2;
+      fov = Math.max(w, h) * 0.9;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const N = 300;
+    const stars = Array.from({ length: N }, () => ({
+      x: Math.random() * 2 - 1,
+      y: Math.random() * 2 - 1,
+      z: Math.random() * 0.9 + 0.1,
+    }));
+
+    const start = performance.now();
+    let last = start;
+    let raf = 0;
+    let hudShown = false;
+
+    const currentPhase = (t: number): Phase | 'reveal' => {
+      for (const p of SEQ) if (t < BOUND[p][1]) return p;
+      return 'reveal';
+    };
+
+    const setSphere = (scale: number, opacity: number) => {
+      const el = sphereRef.current;
+      if (el) {
+        el.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        el.style.opacity = String(opacity);
+      }
+    };
+
+    const loop = (now: number) => {
+      if (doneRef.current) return;
+      const t = now - start;
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      const phase = currentPhase(t);
+
+      let speed = SPEED;
+      let alpha = 1;
+
+      if (phase === 'cruise') {
+        speed = SPEED;
+        setSphere(0, 0);
+      } else if (phase === 'decelerate') {
+        const p = (t - BOUND.decelerate[0]) / PHASE.decelerate;
+        speed = SPEED * (1 - easeOut(p));
+        setSphere(0.04 + easeOut(p) * 0.96, clamp01(p * 2));
+      } else if (phase === 'hold') {
+        const p = (t - BOUND.hold[0]) / PHASE.hold;
+        speed = 0.015;
+        setSphere(1, 1);
+        if (!hudShown) {
+          hudShown = true;
+          setHudOn(true);
+        }
+        if (barRef.current) barRef.current.style.transform = `scaleX(${p.toFixed(3)})`;
+      } else if (phase === 'accelerate') {
+        const p = (t - BOUND.accelerate[0]) / PHASE.accelerate;
+        speed = SPEED * 1.2 * easeIn(p);
+        setSphere(1 + easeIn(p) * 24, 1 - easeIn(p));
+        if (hudShown && hudOnRef.current) {
+          setHudOn(false);
+        }
+      } else if (phase === 'rehyperspace') {
+        speed = SPEED * 1.2;
+        setSphere(0, 0);
+        const rem = PHASE.rehyperspace - (t - BOUND.rehyperspace[0]);
+        if (rem < REHYPER_FADE) alpha = clamp01(rem / REHYPER_FADE);
+      } else {
+        // reveal
+        alpha = 0;
+      }
+
+      /* Traînée : on éclaircit à peine le noir pour l'effet de filé */
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = 'rgba(3, 4, 12, 0.28)';
+      ctx.fillRect(0, 0, w, h);
+
+      if (alpha > 0) {
+        ctx.globalAlpha = alpha;
+        for (const s of stars) {
+          const pz = s.z;
+          s.z -= speed * dt;
+          if (s.z <= 0.02) {
+            s.z = 1;
+            s.x = Math.random() * 2 - 1;
+            s.y = Math.random() * 2 - 1;
+            continue;
+          }
+          const sx = cx + (s.x / s.z) * fov;
+          const sy = cy + (s.y / s.z) * fov;
+          const px = cx + (s.x / pz) * fov;
+          const py = cy + (s.y / pz) * fov;
+          const d = 1 - s.z;
+          ctx.strokeStyle = `rgba(200, 224, 255, ${clamp01(d * 1.1)})`;
+          ctx.lineWidth = Math.max(0.5, d * 2.6);
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(sx, sy);
+          ctx.stroke();
+        }
+      }
+
+      if (phase === 'reveal') {
+        reveal();
+        return;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    raf = requestAnimationFrame(loop);
 
     return () => {
-      ids.forEach((id) => clearTimeout(id));
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
     };
   }, []);
-
-  useEffect(() => {
-    if (phase !== 'done') return;
-    const t = window.setTimeout(() => {
-      setActive(false);
-      document.documentElement.removeAttribute('data-intro');
-    }, 420);
-    return () => clearTimeout(t);
-  }, [phase]);
 
   if (!active) return null;
 
   return (
-    <div
-      className={`intro intro--${phase}`}
-      role="presentation"
-      aria-hidden="true"
-      onClick={() => setPhase('done')}
-    >
-      <div className="intro__stars">
-        {stars.map((s, i) => (
-          <span
-            key={i}
-            className="intro__star"
-            style={
-              {
-                '--a': `${s.angle}deg`,
-                '--o': `${s.offset}px`,
-                '--delay': `${s.delay}s`,
-              } as CSSProperties
-            }
-          />
-        ))}
+    <div className={`intro ${revealing ? 'intro--reveal' : ''}`} role="presentation" aria-hidden="true">
+      <canvas ref={canvasRef} className="intro__canvas" />
+
+      <div ref={sphereRef} className="intro__sphere-wrap">
+        <div className="intro__sphere-spin">
+          <Image src="/logo-sphere.png" alt="" fill sizes="280px" priority className="intro__sphere-img" />
+        </div>
       </div>
 
-      <div className="intro__core">
-        <span className="intro__ring" />
-        <Image
-          src="/logo-sphere.png"
-          alt=""
-          width={148}
-          height={148}
-          priority
-          className="intro__sphere"
-        />
+      <div className={`intro__hud ${hudOn ? 'intro__hud--on' : ''}`}>
+        <p className="intro__hud-label">Retour en hyper-espace</p>
+        <div className="intro__bar">
+          <div ref={barRef} className="intro__bar-fill" />
+        </div>
       </div>
 
-      <p className="intro__label">
-        chargement<span>.</span>
-        <span>.</span>
-        <span>.</span>
-      </p>
-
-      <div className="intro__flash" />
+      <button type="button" className="intro__skip" onClick={() => revealFnRef.current()}>
+        Passer l&apos;intro →
+      </button>
     </div>
   );
 }

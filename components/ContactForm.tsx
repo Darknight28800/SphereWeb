@@ -68,7 +68,7 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="card">
+      <div className="glass-panel">
         <div className="flex flex-col items-start gap-4 py-6" role="status">
           <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-brand/15 text-accent">
             <Icon name="check" className="h-6 w-6" />
@@ -84,7 +84,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="card">
+    <div className="glass-panel">
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Nom" name="name" required autoComplete="name" />
@@ -105,7 +105,7 @@ export default function ContactForm() {
           <select
             id="projectType"
             name="projectType"
-            className="w-full rounded-lg border border-white/15 bg-navy px-3.5 py-2.5 text-sm text-white focus:border-accent"
+            className="w-full rounded-xl border border-white/15 bg-white/[0.03] px-3.5 py-2.5 text-sm text-white focus:border-accent"
             defaultValue={PROJECT_TYPES[0]}
           >
             {PROJECT_TYPES.map((t) => (
@@ -127,7 +127,7 @@ export default function ContactForm() {
             rows={6}
             minLength={10}
             placeholder="Votre activité, l'objectif du projet, un délai éventuel, un lien de référence…"
-            className="w-full rounded-lg border border-white/15 bg-navy px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-accent"
+            className="w-full rounded-xl border border-white/15 bg-white/[0.03] px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-accent"
           />
         </div>
 
@@ -189,7 +189,7 @@ function Field({ label, name, type = 'text', required, autoComplete, inputMode }
         required={required}
         autoComplete={autoComplete}
         inputMode={inputMode}
-        className="w-full rounded-lg border border-white/15 bg-navy px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-accent"
+        className="w-full rounded-xl border border-white/15 bg-white/[0.03] px-3.5 py-2.5 text-sm text-white placeholder:text-white/30 focus:border-accent"
       />
     </div>
   );

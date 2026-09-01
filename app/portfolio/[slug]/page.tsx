@@ -43,30 +43,33 @@ export default async function ProjectDetailPage({
 
   return (
     <>
-      <Section>
+      <Section className="aura">
         <Link
           href="/portfolio"
-          className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-accent"
+          className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-white/50 transition-all hover:gap-3 hover:text-accent"
         >
-          <Icon name="arrow-right" className="h-4 w-4 rotate-180" />
+          <Icon name="arrow-right" className="h-3.5 w-3.5 rotate-180" />
           Portfolio
         </Link>
 
-        <header className="mt-6 max-w-3xl">
-          <p className="eyebrow mb-3">{project.type}</p>
+        <header className="mt-8 max-w-3xl">
+          <p className="eyebrow mb-4">
+            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+            <span>{project.type}</span>
+          </p>
           <h1 className="text-3xl sm:text-4xl">{project.name}</h1>
           <p className="mt-4 text-lg prose-light">{project.tagline}</p>
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span
                 key={tech}
-                className="rounded-lg border border-white/15 px-3 py-1 font-mono text-xs text-white/70"
+                className="rounded-lg border border-white/15 bg-white/[0.03] px-3 py-1 font-mono text-xs text-white/70"
               >
                 {tech}
               </span>
             ))}
             {project.status && (
-              <span className="rounded-lg bg-brand/15 px-3 py-1 font-mono text-xs text-accent">
+              <span className="rounded-lg border border-accent/30 bg-accent/10 px-3 py-1 font-mono text-xs text-accent">
                 {project.status}
               </span>
             )}
@@ -76,10 +79,10 @@ export default async function ProjectDetailPage({
               href={project.url}
               target="_blank"
               rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:gap-2.5"
+              className="link-arrow mt-6"
             >
               Voir le projet en ligne
-              <Icon name="external" className="h-4 w-4" />
+              <Icon name="external" className="h-3.5 w-3.5" />
             </a>
           )}
         </header>
@@ -103,7 +106,7 @@ export default async function ProjectDetailPage({
             {project.highlights.map((h) => (
               <li
                 key={h}
-                className="flex gap-3 rounded-xl border border-white/10 bg-navy-800 p-4 text-sm text-white/75"
+                className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/75"
               >
                 <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <span>{h}</span>

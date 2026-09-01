@@ -14,10 +14,14 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <Section>
+    <Section className="aura">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-start">
         <div>
-          <p className="eyebrow mb-3">Contact</p>
+          <p className="eyebrow mb-4">
+            <span className="text-white/30">00</span>
+            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+            <span>Contact</span>
+          </p>
           <h1 className="text-3xl sm:text-4xl">Parlons de votre projet</h1>
           <p className="mt-4 prose-light">
             Quelques lignes sur votre besoin suffisent pour démarrer. Je vous réponds sous 48 h
@@ -29,13 +33,13 @@ export default function ContactPage() {
               href={`mailto:${site.email}`}
               className="inline-flex items-center gap-3 text-white/75 hover:text-accent"
             >
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy-800 text-accent">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Icon name="mail" className="h-5 w-5" />
               </span>
               {site.email}
             </a>
             <p className="inline-flex items-center gap-3 text-white/75">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-navy-800 text-accent">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Icon name="map-pin" className="h-5 w-5" />
               </span>
               {site.location}

@@ -22,10 +22,14 @@ const values: [string, string][] = [
 export default function AboutPage() {
   return (
     <>
-      <Section>
+      <Section className="aura">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start">
           <div>
-            <SectionHeading eyebrow="À propos" title={`${site.legalName}, derrière SphereWeb`} />
+            <SectionHeading
+              index="01"
+              eyebrow="À propos"
+              title={`${site.legalName}, derrière SphereWeb`}
+            />
             <div className="mt-6 space-y-5 text-lg prose-light">
               <p>
                 Après une reconversion motivée par la volonté de gagner en liberté et en autonomie,
@@ -46,7 +50,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <aside className="card">
+          <aside className="glass-panel">
             <h2 className="text-base">En bref</h2>
             <dl className="mt-4 space-y-4 text-sm">
               <div>
@@ -80,16 +84,16 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section tone="mist">
-        <SectionHeading tone="mist" eyebrow="Méthode" title="Comment je travaille" />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <Section tone="panel" className="border-y border-white/10">
+        <SectionHeading index="02" eyebrow="Méthode" title="Comment je travaille" />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
           {values.map(([title, desc]) => (
-            <div key={title} className="rounded-2xl border border-navy/10 bg-white p-6">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand/10 text-brand">
+            <div key={title} className="glass-panel glass-sheen">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Icon name="check" />
               </span>
-              <h3 className="mt-4 text-navy">{title}</h3>
-              <p className="mt-2 text-sm text-ink/70">{desc}</p>
+              <h3 className="mt-4 text-base">{title}</h3>
+              <p className="mt-2 text-sm text-white/60">{desc}</p>
             </div>
           ))}
         </div>

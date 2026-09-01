@@ -16,37 +16,40 @@ export const metadata = pageMetadata({
 export default function PortfolioPage() {
   return (
     <>
-      <Section>
+      <Section className="aura">
         <SectionHeading
+          index="01"
           eyebrow="Portfolio"
           title="Réalisations"
           intro="Des projets menés pour des clients et des produits que je développe et maintiens moi-même."
         />
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+        <div className="mt-12 grid gap-5 sm:grid-cols-2">
           {projects.map((p) => (
             <Link
               key={p.slug}
               href={`/portfolio/${p.slug}`}
-              className="group card flex flex-col hover:border-brand/40"
+              className="group glass-panel flex flex-col"
             >
               <ProjectThumb project={p} className="mb-5" />
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-xl">{p.name}</h2>
-                  <p className="mt-1 text-sm text-white/40">{p.type}</p>
+                  <p className="mt-1 font-mono text-xs uppercase tracking-wider text-white/40">
+                    {p.type}
+                  </p>
                 </div>
                 {p.status && (
-                  <span className="shrink-0 rounded-full border border-white/15 px-2.5 py-1 text-xs font-medium text-white/60">
+                  <span className="shrink-0 rounded-md border border-white/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-white/55">
                     {p.status}
                   </span>
                 )}
               </div>
               <p className="mt-4 text-sm text-white/70">{p.tagline}</p>
               <p className="mt-auto pt-5 font-mono text-xs text-neutraltxt">{p.stack.join(' · ')}</p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:gap-2.5">
+              <span className="link-arrow mt-4">
                 Détail du projet
-                <Icon name="arrow-right" className="h-4 w-4" />
+                <Icon name="arrow-right" className="h-3.5 w-3.5" />
               </span>
             </Link>
           ))}

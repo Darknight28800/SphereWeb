@@ -34,7 +34,9 @@ export default function Header() {
   return (
     <header
       className={`sticky top-0 z-50 border-b transition-colors ${
-        scrolled ? 'border-white/10 bg-navy/90 backdrop-blur' : 'border-transparent bg-navy'
+        scrolled
+          ? 'border-white/10 bg-navy/70 backdrop-blur-xl'
+          : 'border-transparent bg-navy'
       }`}
     >
       <a
@@ -48,27 +50,30 @@ export default function Header() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Navigation principale">
           {nav.map((item) => (
             <Link
               key={item.to}
               href={item.to}
               aria-current={isActive(item.to) ? 'page' : undefined}
-              className={`text-sm font-medium transition-colors ${
-                isActive(item.to) ? 'text-accent' : 'text-white/70 hover:text-white'
+              className={`font-mono text-[13px] tracking-wide transition-colors ${
+                isActive(item.to)
+                  ? 'text-accent'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
-              {item.label}
+              {isActive(item.to) && <span className="mr-1 text-accent">/</span>}
+              {item.label.toLowerCase()}
             </Link>
           ))}
-          <Link href="/contact" className="btn-primary px-4 py-2 text-sm">
+          <Link href="/contact" className="btn-primary px-4 py-2.5">
             Demander un devis
           </Link>
         </nav>
 
         <button
           type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 text-white md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-[3px] border border-white/15 text-white md:hidden"
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -102,11 +107,11 @@ export default function Header() {
                 key={item.to}
                 href={item.to}
                 aria-current={isActive(item.to) ? 'page' : undefined}
-                className={`rounded-lg px-3 py-3 text-base font-medium ${
-                  isActive(item.to) ? 'bg-navy-800 text-accent' : 'text-white/80 hover:bg-navy-800'
+                className={`rounded-[3px] px-3 py-3 font-mono text-sm tracking-wide ${
+                  isActive(item.to) ? 'bg-navy-800 text-accent' : 'text-white/75 hover:bg-navy-800'
                 }`}
               >
-                {item.label}
+                {item.label.toLowerCase()}
               </Link>
             ))}
             <Link href="/contact" className="btn-primary mt-2 w-full">

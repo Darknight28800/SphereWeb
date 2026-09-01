@@ -9,7 +9,7 @@ export function ProjectThumb({ project, className = '' }: { project: Project; cl
   const cover = project.images?.[0];
   return (
     <div
-      className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-navy-800 ${className}`}
+      className={`relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03] ${className}`}
     >
       {cover ? (
         <Image
@@ -35,7 +35,7 @@ export function ProjectGallery({ project }: { project: Project }) {
   if (images.length === 0) {
     return (
       <div
-        className="mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-navy-800"
+        className="mt-12 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]"
         role="img"
         aria-label={`Aperçu du projet ${project.name} — captures d'écran à venir`}
       >
@@ -50,7 +50,7 @@ export function ProjectGallery({ project }: { project: Project }) {
 
   return (
     <div className="mt-12 space-y-4">
-      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-navy-800">
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
         <Image
           src={first.src}
           alt={first.alt}
@@ -65,7 +65,7 @@ export function ProjectGallery({ project }: { project: Project }) {
           {rest.map((img) => (
             <div
               key={img.src}
-              className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-navy-800"
+              className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10 bg-white/[0.03]"
             >
               <Image
                 src={img.src}

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
-import OrbitViz from '@/components/OrbitViz';
+import HeroPlot from '@/components/HeroPlot';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects, services, site } from '@/lib/site';
@@ -26,23 +26,24 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-navy">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'radial-gradient(55% 45% at 78% 12%, rgba(91,61,246,0.28), transparent 70%), radial-gradient(45% 40% at 8% 88%, rgba(34,211,238,0.12), transparent 70%)',
-          }}
-        />
-        <div className="container-page relative grid gap-12 py-20 sm:py-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-28">
+      <section className="relative overflow-hidden border-b border-white/10 bg-navy">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-blueprint opacity-60" />
+        <div className="container-page relative grid gap-14 py-20 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-28">
           <div className="animate-fade-up">
-            <p className="eyebrow mb-5">{site.role}</p>
-            <h1 className="text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-              SphereWeb, le centre de gravité de votre{' '}
-              <span className="text-gradient">projet web</span>.
+            <p className="eyebrow mb-6">
+              <span className="text-white/30">00</span>
+              <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+              <span>{site.role}</span>
+            </p>
+            <h1 className="text-[2.6rem] leading-[1.05] sm:text-5xl md:text-[3.75rem]">
+              Le centre de gravité de votre{' '}
+              <span className="whitespace-nowrap border-b-2 border-brand pb-1 text-white">
+                projet web
+              </span>
+              .
             </h1>
-            <p className="mt-6 max-w-xl text-lg prose-light">
+            <p className="mt-7 max-w-xl text-lg prose-light">
               Je suis {site.legalName}, développeur freelance fullstack. J&apos;accompagne
               indépendants, artisans et petites structures dans la conception de leur site ou de leur
               application — de la première maquette à la mise en production.
@@ -52,49 +53,50 @@ export default function HomePage() {
                 Demander un devis
                 <Icon name="arrow-right" className="h-4 w-4" />
               </Link>
-              <Link href="/services" className="btn-ghost">
-                Découvrir mes services
+              <Link href="/services" className="btn-outline">
+                Voir les services
               </Link>
             </div>
 
-            <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 hairline-top pt-8 sm:grid-cols-3">
+            <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-8 sm:grid-cols-3">
               {proof.map(([term, desc]) => (
                 <div key={term}>
-                  <dt className="font-heading text-lg font-semibold text-white">{term}</dt>
-                  <dd className="mt-1 text-sm text-white/55">{desc}</dd>
+                  <dt className="font-mono text-sm font-medium uppercase tracking-wider text-accent">
+                    {term}
+                  </dt>
+                  <dd className="mt-2 text-sm text-white/55">{desc}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <OrbitViz className="hidden lg:block" />
+          <HeroPlot className="hidden lg:block" />
         </div>
       </section>
 
       {/* Services */}
-      <Section className="surface-dots">
+      <Section>
         <Reveal>
           <SectionHeading
+            index="01"
             eyebrow="Services"
             title="Ce que je peux faire pour vous"
             intro="Trois façons de travailler ensemble, sans grille tarifaire : chaque projet fait l'objet d'un devis sur mesure."
           />
         </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
           {services.map((s, i) => (
             <Reveal key={s.key} delay={i * 90}>
-              <article className="card h-full">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand/15 text-accent ring-1 ring-inset ring-brand/20">
-                  <Icon name={s.icon} />
+              <article className="glass-panel glass-sheen h-full pt-8">
+                <span className="glass-tag">{String(i + 1).padStart(2, '0')}</span>
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
+                  <Icon name={s.icon} className="h-5 w-5" />
                 </span>
                 <h3 className="mt-5 text-lg">{s.title}</h3>
-                <p className="mt-3 text-sm text-white/65">{s.short}</p>
-                <Link
-                  href={`/services#${s.key}`}
-                  className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-all hover:gap-2.5"
-                >
-                  En savoir plus
-                  <Icon name="arrow-right" className="h-4 w-4" />
+                <p className="mt-3 text-sm text-white/60">{s.short}</p>
+                <Link href={`/services#${s.key}`} className="link-arrow mt-6">
+                  Détail
+                  <Icon name="arrow-right" className="h-3.5 w-3.5" />
                 </Link>
               </article>
             </Reveal>
@@ -103,44 +105,42 @@ export default function HomePage() {
       </Section>
 
       {/* Réalisations phares */}
-      <Section className="bg-navy-800/40">
+      <Section tone="panel" className="border-y border-white/10">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
+              index="02"
               eyebrow="Portfolio"
               title="Quelques réalisations"
               intro="Des projets clients et des produits que je développe et maintiens moi-même."
             />
-            <Link
-              href="/portfolio"
-              className="hidden items-center gap-1.5 text-sm font-medium text-accent hover:gap-2.5 sm:inline-flex"
-            >
+            <Link href="/portfolio" className="link-arrow hidden sm:inline-flex">
               Tout le portfolio
-              <Icon name="arrow-right" className="h-4 w-4" />
+              <Icon name="arrow-right" className="h-3.5 w-3.5" />
             </Link>
           </div>
         </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
           {featured.map((p, i) => (
             <Reveal key={p.slug} delay={i * 90}>
-              <Link href={`/portfolio/${p.slug}`} className="group card flex h-full flex-col">
+              <Link href={`/portfolio/${p.slug}`} className="group glass-panel flex h-full flex-col">
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-center justify-between gap-3">
                   <h3 className="text-lg">{p.name}</h3>
                   {p.status && (
-                    <span className="shrink-0 rounded-full border border-white/15 px-2.5 py-1 text-xs font-medium text-white/60">
+                    <span className="shrink-0 rounded-md border border-white/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-white/55">
                       {p.status}
                     </span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-white/65">{p.tagline}</p>
+                <p className="mt-2 text-sm text-white/60">{p.tagline}</p>
                 <p className="mt-auto pt-4 font-mono text-xs text-neutraltxt">{p.stack.join(' · ')}</p>
               </Link>
             </Reveal>
           ))}
         </div>
         <div className="mt-10 sm:hidden">
-          <Link href="/portfolio" className="btn-primary w-full">
+          <Link href="/portfolio" className="btn-outline w-full">
             Tout le portfolio
           </Link>
         </div>
@@ -150,20 +150,19 @@ export default function HomePage() {
       <Section>
         <Reveal>
           <SectionHeading
+            index="03"
             eyebrow="Méthode"
             title="Un déroulé simple et lisible"
             intro="Vous savez à chaque étape où en est le projet et ce qui vous est demandé."
           />
         </Reveal>
-        <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map(([num, title, desc], i) => (
             <Reveal key={num} delay={i * 80} as="li">
-              <div className="card h-full">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-accent/30 font-mono text-sm text-accent">
-                  {num}
-                </span>
-                <h3 className="mt-4 text-base">{title}</h3>
-                <p className="mt-2 text-sm text-white/60">{desc}</p>
+              <div className="glass-panel h-full border-l-2 border-l-brand/50">
+                <span className="font-mono text-xs tracking-widest text-accent">{num}</span>
+                <h3 className="mt-3 text-base">{title}</h3>
+                <p className="mt-2 text-sm text-white/55">{desc}</p>
               </div>
             </Reveal>
           ))}

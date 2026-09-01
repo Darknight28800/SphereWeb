@@ -3,17 +3,19 @@ import Logo from './Logo';
 import Icon from './Icon';
 import { nav, site } from '@/lib/site';
 
+const colLabel = 'font-mono text-xs uppercase tracking-[0.2em] text-white/40';
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="border-t border-white/10 bg-navy">
       <div className="container-page py-14">
-        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
           <div>
             <Logo />
-            <p className="mt-4 max-w-sm text-sm text-white/60">{site.baseline}</p>
-            <p className="mt-4 text-sm text-white/50">
+            <p className="mt-5 max-w-sm text-sm text-white/60">{site.baseline}</p>
+            <p className="mt-5 font-mono text-xs leading-relaxed text-white/45">
               {site.legalName} — {site.role}
               <br />
               {site.status} · {site.location}
@@ -21,11 +23,11 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Pied de page — navigation">
-            <h2 className="font-heading text-sm font-semibold text-white">Navigation</h2>
-            <ul className="mt-4 space-y-2 text-sm">
+            <h2 className={colLabel}>Navigation</h2>
+            <ul className="mt-4 space-y-2.5 text-sm">
               {nav.map((item) => (
                 <li key={item.to}>
-                  <Link href={item.to} className="text-white/60 hover:text-accent">
+                  <Link href={item.to} className="text-white/60 transition-colors hover:text-accent">
                     {item.label}
                   </Link>
                 </li>
@@ -34,12 +36,12 @@ export default function Footer() {
           </nav>
 
           <div>
-            <h2 className="font-heading text-sm font-semibold text-white">Contact</h2>
+            <h2 className={colLabel}>Contact</h2>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="inline-flex items-center gap-2 text-white/60 hover:text-accent"
+                  className="inline-flex items-center gap-2 text-white/60 transition-colors hover:text-accent"
                 >
                   <Icon name="mail" className="h-4 w-4" />
                   {site.email}
@@ -53,15 +55,15 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.name} — {site.legalName}. Tous droits réservés.
+            © {year} {site.name} — {site.legalName}
           </p>
-          <div className="flex gap-5">
-            <Link href="/mentions-legales" className="hover:text-white/70">
+          <div className="flex gap-6">
+            <Link href="/mentions-legales" className="transition-colors hover:text-white/70">
               Mentions légales
             </Link>
-            <Link href="/confidentialite" className="hover:text-white/70">
+            <Link href="/confidentialite" className="transition-colors hover:text-white/70">
               Confidentialité
             </Link>
           </div>

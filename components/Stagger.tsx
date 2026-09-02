@@ -49,8 +49,8 @@ export function StaggerItem({ children, className, as = 'div', id, hover = false
   const MotionTag = motion[as] as ElementType;
 
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 26 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+    hidden: { opacity: 0, y: reduce ? 0 : 12 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE } },
   };
 
   return (
@@ -59,7 +59,7 @@ export function StaggerItem({ children, className, as = 'div', id, hover = false
       className={className}
       variants={variants}
       whileHover={
-        hover && !reduce ? { y: -6, transition: { duration: 0.2, ease: 'easeOut' } } : undefined
+        hover && !reduce ? { y: -4, transition: { duration: 0.2, ease: 'easeOut' } } : undefined
       }
     >
       {children}

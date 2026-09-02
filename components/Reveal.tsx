@@ -23,8 +23,8 @@ export default function Reveal({ children, delay = 0, as = 'div', className }: R
   const MotionTag = motion[as] as ElementType;
 
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 22 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE, delay } },
+    hidden: { opacity: 0, y: reduce ? 0 : 10 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: EASE, delay } },
   };
 
   return (

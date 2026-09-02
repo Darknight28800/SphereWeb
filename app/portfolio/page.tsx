@@ -33,7 +33,7 @@ export default function PortfolioPage() {
             <StaggerItem key={p.slug} hover className="h-full">
               <Link
                 href={`/portfolio/${p.slug}`}
-                className="group glass-panel shine flex h-full flex-col"
+                className="group glass-panel flex h-full flex-col"
               >
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-start justify-between gap-4">

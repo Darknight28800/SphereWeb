@@ -99,7 +99,7 @@ export default function HomePage() {
               key={s.key}
               as="article"
               hover
-              className="glass-panel glass-sheen shine h-full pt-8"
+              className="glass-panel glass-sheen h-full pt-8"
             >
               <span className="glass-tag">{String(i + 1).padStart(2, '0')}</span>
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
@@ -137,7 +137,7 @@ export default function HomePage() {
             <StaggerItem key={p.slug} hover className="h-full">
               <Link
                 href={`/portfolio/${p.slug}`}
-                className="group glass-panel shine flex h-full flex-col"
+                className="group glass-panel flex h-full flex-col"
               >
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-center justify-between gap-3">
@@ -179,7 +179,7 @@ export default function HomePage() {
               key={num}
               as="li"
               hover
-              className="glass-panel shine h-full border-l-2 border-l-brand/50"
+              className="glass-panel h-full border-l-2 border-l-brand/50"
             >
               <span className="font-mono text-xs tracking-widest text-accent">{num}</span>
               <h3 className="mt-3 text-base">{title}</h3>

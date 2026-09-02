@@ -95,47 +95,36 @@
     z-index: 1;
   }
 
-  /* Jet de lumière qui balaie la surface (au survol, ou en boucle lente) */
-  .shine {
-    @apply relative overflow-hidden;
-  }
-
-  .shine::before {
+  /* Jet de lumière global : une seule passe balaie l'écran de gauche à droite
+     (piloté par components/CardBeam.tsx via --beam-x / --beam-o) et n'est
+     visible que sur les panneaux. */
+  .glass-panel::before,
+  .beam-target::before {
     content: '';
-    @apply pointer-events-none absolute inset-y-0 z-[2];
-    left: -60%;
-    width: 45%;
-    transform: skewX(-18deg);
+    position: absolute;
+    inset-block: -30%;
+    left: 0;
+    width: 190px;
+    pointer-events: none;
+    z-index: 3;
     background: linear-gradient(
       100deg,
       transparent,
-      rgba(255, 255, 255, 0.08) 40%,
-      rgba(255, 255, 255, 0.22) 50%,
-      rgba(255, 255, 255, 0.08) 60%,
+      rgba(255, 255, 255, 0.09) 42%,
+      rgba(255, 255, 255, 0.26) 50%,
+      rgba(255, 255, 255, 0.09) 58%,
       transparent
     );
-  }
-
-  .shine:hover::before,
-  .group:hover .shine::before {
-    animation: shine-sweep 0.85s ease-out;
-  }
-
-  .shine-loop::before {
-    animation: shine-sweep 7s ease-in-out 1.5s infinite;
-  }
-
-  @keyframes shine-sweep {
-    from {
-      left: -60%;
-    }
-    to {
-      left: 160%;
-    }
+    mix-blend-mode: screen;
+    transform: translateX(var(--beam-x, -99999px)) skewX(-20deg);
+    opacity: var(--beam-o, 0);
+    transition: opacity 0.4s ease;
+    will-change: transform, opacity;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .shine::before {
+    .glass-panel::before,
+    .beam-target::before {
       display: none;
     }
   }

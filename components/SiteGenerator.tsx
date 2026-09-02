@@ -17,6 +17,8 @@ const LOADING_STEPS = [
   'Derniers ajustements…',
 ];
 
+const DEFAULT_PALETTE = ['#22303C', '#6366F1', '#F5F3EF'];
+
 export default function SiteGenerator() {
   const [prompt, setPrompt] = useState('');
   const [status, setStatus] = useState<Status>('idle');
@@ -25,6 +27,8 @@ export default function SiteGenerator() {
   const [remaining, setRemaining] = useState<number | null>(null);
   const [step, setStep] = useState(0);
   const [expanded, setExpanded] = useState(false);
+  const [useCustomColors, setUseCustomColors] = useState(false);
+  const [colors, setColors] = useState<string[]>(DEFAULT_PALETTE);
 
   const resultRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -54,6 +58,12 @@ export default function SiteGenerator() {
 
   const outOfCredits = remaining === 0;
 
+  const setColorAt = (i: number, v: string) =>
+    setColors((cs) => cs.map((c, j) => (j === i ? v : c)));
+  const addColor = () => setColors((cs) => (cs.length < 4 ? [...cs, '#888888'] : cs));
+  const removeColor = (i: number) =>
+    setColors((cs) => (cs.length > 2 ? cs.filter((_, j) => j !== i) : cs));
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === 'loading' || outOfCredits) return;
@@ -76,7 +86,10 @@ export default function SiteGenerator() {
       const res = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: brief }),
+        body: JSON.stringify({
+          prompt: brief,
+          ...(useCustomColors ? { colors } : {}),
+        }),
       });
       const body = (await res.json().catch(() => null)) as
         | { html?: string; remaining?: number; error?: string }
@@ -153,6 +166,67 @@ export default function SiteGenerator() {
               {prompt.length}/{MAX_LEN}
             </span>
           </div>
+        </div>
+
+        {/* Palette : automatique ou choisie par le visiteur */}
+        <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3.5">
+          <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-white/80">
+            <input
+              type="checkbox"
+              checked={useCustomColors}
+              onChange={(e) => setUseCustomColors(e.target.checked)}
+              className="h-4 w-4 rounded border-white/25 bg-navy accent-brand"
+            />
+            Je choisis mes couleurs
+          </label>
+
+          {!useCustomColors ? (
+            <p className="mt-1.5 text-xs text-white/40">
+              Sinon, la palette est choisie selon le secteur et l&apos;ambiance décrits.
+            </p>
+          ) : (
+            <div className="mt-3 space-y-2">
+              <div className="flex flex-wrap gap-2.5">
+                {colors.map((c, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/[0.03] py-1.5 pl-1.5 pr-2"
+                  >
+                    <input
+                      type="color"
+                      value={c}
+                      onChange={(e) => setColorAt(i, e.target.value)}
+                      aria-label={`Couleur ${i + 1}`}
+                      className="h-7 w-7 cursor-pointer rounded-md border-0 bg-transparent p-0"
+                    />
+                    <span className="font-mono text-xs uppercase text-white/60">{c}</span>
+                    {colors.length > 2 && (
+                      <button
+                        type="button"
+                        onClick={() => removeColor(i)}
+                        aria-label={`Retirer la couleur ${i + 1}`}
+                        className="text-base leading-none text-white/30 hover:text-white/80"
+                      >
+                        &times;
+                      </button>
+                    )}
+                  </span>
+                ))}
+                {colors.length < 4 && (
+                  <button
+                    type="button"
+                    onClick={addColor}
+                    className="inline-flex items-center rounded-lg border border-dashed border-white/20 px-2.5 py-1.5 font-mono text-xs uppercase tracking-wider text-white/50 hover:border-accent/50 hover:text-accent"
+                  >
+                    + Couleur
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-white/40">
+                2 à 4 couleurs — elles priment sur toute couleur écrite dans le brief.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Honeypot */}

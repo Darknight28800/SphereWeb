@@ -113,7 +113,7 @@ c'est une illustration de style.
 |---|---|
 | `lib/anthropic.ts` | Point de config centralisé : client Anthropic, modèle, garde `isGeneratorConfigured()` |
 | `lib/generator/prompt.ts` | Prompt système strict + extraction/sécurisation du HTML (injection CSP) |
-| `lib/generator/schema.ts` | Validation zod du corps de requête (brief ≤ 600 car., honeypot) |
+| `lib/generator/schema.ts` | Validation zod du corps de requête (brief ≤ 600 car., palette 2-4 couleurs hex facultative, honeypot) |
 | `lib/generator/quota.ts` | Quotas en mémoire (3/IP/jour + garde-fou global 150/jour) + journalisation JSON |
 | `app/api/generate/route.ts` | Route Handler : quota → appel Claude en streaming → HTML |
 | `components/SiteGenerator.tsx` | UI : exemples, champ éditable, chargement progressif, iframe, CTA |

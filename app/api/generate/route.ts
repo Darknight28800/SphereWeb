@@ -88,7 +88,9 @@ export async function POST(request: Request) {
       system: [
         { type: 'text', text: buildSystemPrompt(), cache_control: { type: 'ephemeral' } },
       ],
-      messages: [{ role: 'user', content: buildUserPrompt({ prompt }) }],
+      messages: [
+        { role: 'user', content: buildUserPrompt({ prompt, colors: parsed.data.colors }) },
+      ],
     });
 
     const message = await stream.finalMessage();

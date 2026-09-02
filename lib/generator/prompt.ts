@@ -45,6 +45,7 @@ CONTRAINTES TECHNIQUES (strictes)
 - Tout le CSS dans une balise <style> unique dans <head>. JS seulement si utile (petit effet), inline dans <script>, sans dépendance.
 - ZÉRO ressource externe : pas de <link>, pas de <script src>, pas d'<img src="http…">, pas de fetch/XHR, pas d'URL distante. Les images = dégradés/formes CSS ou SVG inline.
 - ICÔNES : UNIQUEMENT du SVG inline (<svg viewBox="0 0 24 24">…</svg>) ou une forme CSS. JAMAIS de caractère spécial, emoji, dingbat, rune ou glyphe typographique en guise d'icône (ça s'affiche cassé).
+- INTERACTIVITÉ : c'est un aperçu figé. Tous les liens en href="#", tous les <button> en type="button". Aucun formulaire qui soumet. Prévois des styles :hover discrets sur les boutons et liens (changement de couleur/opacité).
 - Pas de commentaire de développeur, pas de texte hors du HTML.
 - Longueur cible : 150 à 320 lignes. Reste compact.
 
@@ -56,14 +57,22 @@ RÉPONSE
 export interface GenerationBrief {
   /** Texte libre du prospect (déjà validé / borné en amont). */
   prompt: string;
+  /** Palette choisie par le visiteur (2 à 4 couleurs hex), facultative. */
+  colors?: string[];
 }
 
-export function buildUserPrompt({ prompt }: GenerationBrief): string {
+export function buildUserPrompt({ prompt, colors }: GenerationBrief): string {
+  const palette =
+    colors && colors.length >= 2
+      ? `\n\nPALETTE IMPOSÉE PAR LE CLIENT (prioritaire sur toute couleur citée dans le brief) : ${colors.join(', ')}.
+Utilise EXACTEMENT ces couleurs comme base de la charte (fond, accents, boutons, titres), en t'autorisant seulement des neutres (blanc, noir, gris) et des variations d'opacité. Ne substitue aucune de ces couleurs.`
+      : '';
+
   return `Génère la maquette de page d'accueil pour le brief suivant :
 
 """
 ${prompt}
-"""
+"""${palette}
 
 Rappel : header + hero + grille de 3-4 cards placeholder + pied de page minimal. Un seul fichier HTML autonome, zéro ressource externe. Réponds uniquement avec le HTML.`;
 }
@@ -100,7 +109,7 @@ export function extractHtmlDocument(raw: string): string {
     throw new MalformedGenerationError();
   }
 
-  return injectCsp(doc);
+  return injectInertGuard(injectCsp(doc));
 }
 
 function injectCsp(doc: string): string {
@@ -109,4 +118,24 @@ function injectCsp(doc: string): string {
     return doc.replace(/<head[^>]*>/i, (m) => `${m}\n  ${meta}`);
   }
   return doc.replace(/<html[^>]*>/i, (m) => `${m}\n<head>${meta}</head>`);
+}
+
+/**
+ * Rend la maquette NON interactive : c'est un aperçu de rendu, pas un site.
+ * Le document est injecté via `srcdoc` — son URL de base est celle du site
+ * parent, donc un `href="#"` ou `href="/"` ferait naviguer l'iframe vers
+ * sphereweb-dev.com. On neutralise donc tout : clics de liens, envois de
+ * formulaire, navigation. Le survol (`:hover`) et le curseur `pointer`
+ * restent actifs pour donner l'impression d'un site vivant.
+ */
+function injectInertGuard(doc: string): string {
+  const guard = `<style>a,button,[role="button"],input[type="submit"],input[type="button"],label{cursor:pointer}</style>
+<script>(function(){var s=function(e){e.preventDefault();e.stopPropagation();};
+addEventListener('click',s,true);addEventListener('submit',s,true);addEventListener('auxclick',s,true);
+addEventListener('keydown',function(e){if((e.key==='Enter'||e.key===' ')&&e.target){var t=e.target.tagName;if(t==='A'||t==='BUTTON')e.preventDefault();}},true);
+addEventListener('beforeunload',function(e){e.preventDefault();e.returnValue='';});
+try{history.pushState=function(){};history.replaceState=function(){};}catch(_){}}());</script>`;
+
+  if (/<\/body>/i.test(doc)) return doc.replace(/<\/body>/i, `${guard}\n</body>`);
+  return doc.replace(/<\/html>/i, `${guard}\n</html>`);
 }

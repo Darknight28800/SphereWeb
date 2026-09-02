@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
+import { Stagger, StaggerItem } from '@/components/Stagger';
 import { Section, SectionHeading } from '@/components/Section';
 import { services } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -17,44 +18,46 @@ export default function ServicesPage() {
   return (
     <>
       <Section className="aura">
-        <SectionHeading
-          index="01"
-          eyebrow="Services"
-          title="Sites, applications et suivi technique"
-          intro="Je présente mes services sans grille tarifaire : chaque projet est différent, chaque devis l'est aussi. Vous m'exposez votre besoin, je vous réponds avec une proposition claire."
-        />
+        <Reveal>
+          <SectionHeading
+            index="01"
+            eyebrow="Services"
+            title="Sites, applications et suivi technique"
+            intro="Je présente mes services sans grille tarifaire : chaque projet est différent, chaque devis l'est aussi. Vous m'exposez votre besoin, je vous réponds avec une proposition claire."
+          />
+        </Reveal>
 
-        <div className="mt-16 space-y-6">
+        <Stagger className="mt-16 space-y-6" gap={0.12}>
           {services.map((s, i) => (
-            <Reveal key={s.key}>
-              <article
-                id={s.key}
-                className="glass-panel glass-sheen shine grid scroll-mt-24 gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.25fr]"
-              >
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
-                      <Icon name={s.icon} className="h-5 w-5" />
-                    </span>
-                    <span className="font-mono text-xs tracking-widest text-white/30">
-                      {String(i + 1).padStart(2, '0')} / 03
-                    </span>
-                  </div>
-                  <h2 className="mt-5 text-2xl">{s.title}</h2>
-                  <p className="mt-4 prose-light">{s.description}</p>
+            <StaggerItem
+              key={s.key}
+              as="article"
+              id={s.key}
+              className="glass-panel glass-sheen shine grid scroll-mt-24 gap-8 p-7 sm:p-9 lg:grid-cols-[1fr_1.25fr]"
+            >
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
+                    <Icon name={s.icon} className="h-5 w-5" />
+                  </span>
+                  <span className="font-mono text-xs tracking-widest text-white/30">
+                    {String(i + 1).padStart(2, '0')} / 03
+                  </span>
                 </div>
-                <ul className="grid gap-3 self-start rounded-xl border border-white/10 bg-white/[0.03] p-5">
-                  {s.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-sm text-white/75">
-                      <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </Reveal>
+                <h2 className="mt-5 text-2xl">{s.title}</h2>
+                <p className="mt-4 prose-light">{s.description}</p>
+              </div>
+              <ul className="grid gap-3 self-start rounded-xl border border-white/10 bg-white/[0.03] p-5">
+                {s.points.map((point) => (
+                  <li key={point} className="flex gap-3 text-sm text-white/75">
+                    <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </Section>
 
       <Section tone="panel" className="border-y border-white/10">

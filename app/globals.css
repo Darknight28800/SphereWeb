@@ -212,26 +212,6 @@
     }
   }
 
-  /* Révélation au scroll (components/Reveal.tsx) */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-      opacity 0.5s ease-out,
-      transform 0.5s ease-out;
-  }
-
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-    }
-  }
 }
 
 

@@ -1,5 +1,7 @@
 import CtaBand from '@/components/CtaBand';
 import Icon from '@/components/Icon';
+import Reveal from '@/components/Reveal';
+import { Stagger, StaggerItem } from '@/components/Stagger';
 import { Section, SectionHeading } from '@/components/Section';
 import { site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -85,18 +87,20 @@ export default function AboutPage() {
       </Section>
 
       <Section tone="panel" className="border-y border-white/10">
-        <SectionHeading index="02" eyebrow="Méthode" title="Comment je travaille" />
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
+        <Reveal>
+          <SectionHeading index="02" eyebrow="Méthode" title="Comment je travaille" />
+        </Reveal>
+        <Stagger className="mt-12 grid gap-5 md:grid-cols-3">
           {values.map(([title, desc]) => (
-            <div key={title} className="glass-panel glass-sheen shine">
+            <StaggerItem key={title} hover className="glass-panel glass-sheen shine">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Icon name="check" />
               </span>
               <h3 className="mt-4 text-base">{title}</h3>
               <p className="mt-2 text-sm text-white/60">{desc}</p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </Section>
 
       <CtaBand title="On fait connaissance ?" />

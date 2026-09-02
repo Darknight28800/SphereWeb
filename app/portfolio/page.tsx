@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
+import Reveal from '@/components/Reveal';
+import { Stagger, StaggerItem } from '@/components/Stagger';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects } from '@/lib/site';
@@ -17,22 +19,24 @@ export default function PortfolioPage() {
   return (
     <>
       <Section className="aura">
-        <SectionHeading
-          index="01"
-          eyebrow="Portfolio"
-          title="Réalisations"
-          intro="Des projets menés pour des clients et des produits que je développe et maintiens moi-même."
-        />
+        <Reveal>
+          <SectionHeading
+            index="01"
+            eyebrow="Portfolio"
+            title="Réalisations"
+            intro="Des projets menés pour des clients et des produits que je développe et maintiens moi-même."
+          />
+        </Reveal>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        <Stagger className="mt-12 grid gap-5 sm:grid-cols-2">
           {projects.map((p) => (
-            <Link
-              key={p.slug}
-              href={`/portfolio/${p.slug}`}
-              className="group glass-panel shine flex flex-col"
-            >
-              <ProjectThumb project={p} className="mb-5" />
-              <div className="flex items-start justify-between gap-4">
+            <StaggerItem key={p.slug} hover className="h-full">
+              <Link
+                href={`/portfolio/${p.slug}`}
+                className="group glass-panel shine flex h-full flex-col"
+              >
+                <ProjectThumb project={p} className="mb-5" />
+                <div className="flex items-start justify-between gap-4">
                 <div>
                   <h2 className="text-xl">{p.name}</h2>
                   <p className="mt-1 font-mono text-xs uppercase tracking-wider text-white/40">
@@ -45,15 +49,18 @@ export default function PortfolioPage() {
                   </span>
                 )}
               </div>
-              <p className="mt-4 text-sm text-white/70">{p.tagline}</p>
-              <p className="mt-auto pt-5 font-mono text-xs text-neutraltxt">{p.stack.join(' · ')}</p>
-              <span className="link-arrow mt-4">
-                Détail du projet
-                <Icon name="arrow-right" className="h-3.5 w-3.5" />
-              </span>
-            </Link>
+                <p className="mt-4 text-sm text-white/70">{p.tagline}</p>
+                <p className="mt-auto pt-5 font-mono text-xs text-neutraltxt">
+                  {p.stack.join(' · ')}
+                </p>
+                <span className="link-arrow mt-4">
+                  Détail du projet
+                  <Icon name="arrow-right" className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </Section>
 
       <CtaBand

@@ -1,49 +1,41 @@
 'use client';
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from 'react';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import type { ElementType, ReactNode } from 'react';
 
 interface RevealProps {
   children: ReactNode;
-  /** Décalage d'apparition en ms (effet d'escalier). */
+  /** Décalage d'apparition en secondes (effet d'escalier). */
   delay?: number;
-  as?: ElementType;
+  as?: 'div' | 'li' | 'section' | 'article' | 'span';
   className?: string;
 }
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 /**
- * Fait apparaître son contenu en fondu ascendant lorsqu'il entre dans le viewport.
- * Sans animation si l'utilisateur a réduit les animations (géré en CSS).
+ * Révèle son contenu en fondu ascendant à l'entrée dans le viewport,
+ * et le masque quand il en sort (apparition / disparition au scroll).
+ * Neutralisé si l'utilisateur a demandé des animations réduites.
  */
-export default function Reveal({ children, delay = 0, as, className = '' }: RevealProps) {
-  const Tag = (as ?? 'div') as ElementType;
-  const ref = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
+export default function Reveal({ children, delay = 0, as = 'div', className }: RevealProps) {
+  const reduce = useReducedMotion();
+  const MotionTag = motion[as] as ElementType;
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const variants: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 22 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE, delay } },
+  };
 
   return (
-    <Tag
-      ref={ref}
-      className={`reveal ${visible ? 'is-visible' : ''} ${className}`}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    <MotionTag
+      className={className}
+      variants={variants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ amount: 0.2, margin: '0px 0px -8% 0px' }}
     >
       {children}
-    </Tag>
+    </MotionTag>
   );
 }

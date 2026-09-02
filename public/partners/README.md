@@ -1,7 +1,7 @@
 # Logos partenaires
 
-Remplacer `artnumerique.svg` (placeholder texte) par le logo officiel
-fourni par ARTNumérique — SVG de préférence, sinon PNG fond transparent,
-hauteur ~ 64 px minimum.
+`artnumerique.png` — logo officiel ARTNumérique (fond transparent, 243 × 130,
+généré depuis `assets/ArtNumerique.png` via sharp).
 
-Le chemin est référencé dans [`lib/site.ts`](../../lib/site.ts) → `partner.logo`.
+Le chemin est référencé dans [`lib/site.ts`](../../lib/site.ts) → `partner.logo`,
+affiché dans le pied de page (`components/Footer.tsx`, hauteur 24 px).

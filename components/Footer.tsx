@@ -78,10 +78,10 @@ export default function Footer() {
             <Image
               src={partner.logo}
               alt={partner.name}
-              width={150}
-              height={24}
+              width={306}
+              height={160}
               unoptimized
-              className="h-6 w-auto"
+              className="h-9 w-auto"
             />
             <span className="sr-only">{partner.name}</span>
             <Icon name="external" className="h-3.5 w-3.5 text-white/35" />

@@ -90,7 +90,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 space-y-3 border-t border-white/10 pt-6 text-xs leading-relaxed text-white/40">
-          <p>
+          <p className="text-center">
             © {year} {site.name} — {site.legalName}. Tous droits réservés. Toute reproduction ou
             copie, même partielle, de ce site (contenus, code, design) est interdite sans
             autorisation écrite.

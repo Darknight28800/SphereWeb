@@ -202,6 +202,8 @@ export interface NavItem {
 }
 
 export const nav: NavItem[] = [
+  // `label` = texte affiché (le header le met en minuscules).
+  // `to`    = URL de la page — NE PAS toucher sauf si le dossier de `app/` est renommé.
   { label: 'Accueil', to: '/' },
   { label: 'Services', to: '/services' },
   { label: 'Portfolio', to: '/portfolio' },

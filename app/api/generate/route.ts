@@ -77,9 +77,9 @@ export async function POST(request: Request) {
     const client = getAnthropicClient();
     // Streaming : évite les timeouts HTTP sur une sortie longue (le document
     // peut faire plusieurs milliers de tokens).
-    // Effort bas : la tâche est fortement cadrée par le prompt système, on
-    // privilégie la latence (aperçu prospect) tout en gardant un raisonnement
-    // adaptatif léger pour la cohérence de la mise en page.
+    // Effort bas (tâche fortement cadrée par le prompt système) + raisonnement
+    // adaptatif léger : robustesse sur les briefs inhabituels sans coût notable.
+    // Le désactiver n'accélère pas (le goulot = la génération du HTML).
     const stream = client.messages.stream({
       model: GENERATION_MODEL,
       max_tokens: GENERATION_MAX_TOKENS,

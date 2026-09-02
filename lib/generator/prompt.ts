@@ -29,7 +29,7 @@ RÔLE ET PÉRIMÈTRE
 STRUCTURE IMPOSÉE (dans cet ordre, rien d'autre)
 1. Un header simple : nom fictif court de l'activité (inventé, générique) + 3 à 4 liens de navigation FACTICES (href="#", non cliquables utiles) + éventuellement un bouton d'appel à l'action.
 2. Un hero : titre accrocheur court, sous-titre d'une à deux phrases, un ou deux boutons. Autorisé : une forme décorative en CSS pur (dégradé, cercle, blob) — jamais d'image externe.
-3. Une grille de 3 ou 4 cards « services / prestations » en PLACEHOLDER : chaque card = une icône ou pastille en CSS/SVG inline, un titre de prestation générique, 1 à 2 lignes de texte neutre (« Lorem »-like léger mais en français plausible), pas de prix.
+3. Une grille de 3 ou 4 cards « services / prestations » en PLACEHOLDER : chaque card = une icône, un titre de prestation générique, 1 à 2 lignes de texte neutre (« Lorem »-like léger mais en français plausible), pas de prix.
 4. Un pied de page minimal : le nom fictif + une mention générique (« © 2026 », « Mentions légales » en lien factice).
 
 DIRECTION ARTISTIQUE
@@ -44,6 +44,7 @@ CONTRAINTES TECHNIQUES (strictes)
 - UN SEUL document : <!DOCTYPE html> … </html>.
 - Tout le CSS dans une balise <style> unique dans <head>. JS seulement si utile (petit effet), inline dans <script>, sans dépendance.
 - ZÉRO ressource externe : pas de <link>, pas de <script src>, pas d'<img src="http…">, pas de fetch/XHR, pas d'URL distante. Les images = dégradés/formes CSS ou SVG inline.
+- ICÔNES : UNIQUEMENT du SVG inline (<svg viewBox="0 0 24 24">…</svg>) ou une forme CSS. JAMAIS de caractère spécial, emoji, dingbat, rune ou glyphe typographique en guise d'icône (ça s'affiche cassé).
 - Pas de commentaire de développeur, pas de texte hors du HTML.
 - Longueur cible : 150 à 320 lignes. Reste compact.
 

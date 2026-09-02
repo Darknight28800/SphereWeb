@@ -21,9 +21,10 @@ export default function DemoPage() {
         </p>
         <h1 className="text-3xl sm:text-4xl">Testez votre futur site en 30 secondes</h1>
         <p className="mt-4 prose-light">
-          Décrivez votre activité, l&apos;ambiance recherchée et vos couleurs : vous recevez tout de
-          suite un aperçu de <strong className="text-white/90">page d&apos;accueil</strong>. C&apos;est
-          une illustration de style — pas un site complet — pour vous donner une idée de direction.
+          Décrivez votre activité, l&apos;ambiance recherchée et vos couleurs : en une trentaine de
+          secondes, vous obtenez un aperçu de{' '}
+          <strong className="text-white/90">page d&apos;accueil</strong>. C&apos;est une illustration
+          de style — pas un site complet — pour vous donner une idée de direction.
         </p>
         <p className="mt-3 text-sm text-white/45">
           3 essais gratuits. Rendu propulsé par l&apos;IA, sans engagement.{' '}

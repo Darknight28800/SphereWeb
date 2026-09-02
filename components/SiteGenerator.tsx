@@ -202,7 +202,7 @@ export default function SiteGenerator() {
           </div>
           <p className="font-mono text-sm text-accent">{LOADING_STEPS[step]}</p>
           <p className="mt-1 text-xs text-white/40">
-            Cela prend en général une quinzaine de secondes.
+            Comptez une trentaine de secondes : le HTML est écrit ligne à ligne.
           </p>
         </div>
       )}

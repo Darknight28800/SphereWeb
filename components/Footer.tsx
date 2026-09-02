@@ -95,16 +95,18 @@ export default function Footer() {
             copie, même partielle, de ce site (contenus, code, design) est interdite sans
             autorisation écrite.
           </p>
-          <p>
-            Conçu &amp; développé avec <span className="text-accent">♥</span> en France.
-          </p>
-          <div className="flex gap-6 pt-1">
-            <Link href="/mentions-legales" className="transition-colors hover:text-white/70">
-              Mentions légales
-            </Link>
-            <Link href="/confidentialite" className="transition-colors hover:text-white/70">
-              Politique de confidentialité
-            </Link>
+          <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center sm:justify-between">
+            <p className="uppercase tracking-[0.15em] text-white/45">
+              Création - Développement - Innovation
+            </p>
+            <div className="flex gap-6">
+              <Link href="/mentions-legales" className="transition-colors hover:text-white/70">
+                Mentions légales
+              </Link>
+              <Link href="/confidentialite" className="transition-colors hover:text-white/70">
+                Politique de confidentialité
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -206,5 +206,6 @@ export const nav: NavItem[] = [
   { label: 'Services', to: '/services' },
   { label: 'Portfolio', to: '/portfolio' },
   { label: 'À propos', to: '/a-propos' },
+  { label: 'Démo', to: '/demo' },
   { label: 'Contact', to: '/contact' },
 ];

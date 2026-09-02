@@ -30,10 +30,10 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: 'SphereWeb — Développeur web freelance fullstack',
+    default: 'SphereWeb — Développeur web fullstack',
     template: '%s — SphereWeb',
   },
-  description: `${site.baseline} Sites vitrines, applications web sur mesure et maintenance par ${site.legalName}, développeur freelance fullstack en ${site.location}.`,
+  description: `${site.baseline} Sites vitrines, applications web sur mesure et maintenance par ${site.legalName}, développeur web fullstack en ${site.location}.`,
   applicationName: site.name,
   authors: [{ name: site.legalName }],
   manifest: '/site.webmanifest',

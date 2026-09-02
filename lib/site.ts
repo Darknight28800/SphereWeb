@@ -3,8 +3,8 @@
 
 export const site = {
   name: 'SphereWeb',
-  legalName: 'David Antoina',
-  role: 'Développeur freelance fullstack',
+  legalName: 'David ANTOINA',
+  role: 'Développeur web et web mobile fullstack',
   baseline: 'SphereWeb, le centre de gravité de votre projet web.',
   // Domaine officiel retenu (postérieur à la charte, qui mentionnait sphere-web.com).
   url: 'https://sphereweb-dev.com',
@@ -128,7 +128,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'trouve-ton-artisan',
-    name: 'Trouve Ton Artisan',
+    name: 'Trouve Ton Artisan (TTA)',
     tagline: "Plateforme d'annuaire d'artisans.",
     stack: ['React', 'Node.js', 'Express'],
     type: 'Plateforme / annuaire',
@@ -150,7 +150,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'tpak',
-    name: 'TPAK',
+    name: 'Touche Pas Au Klaxon (TPAK)',
     tagline: 'Application de covoiturage.',
     stack: ['PHP', 'MVC'],
     type: 'Application de covoiturage',
@@ -166,8 +166,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'gdf',
-    name: 'GDF',
-    tagline: 'SaaS de facturation et de gestion financière pour freelances.',
+    name: 'FacturePro',
+    tagline: 'SaaS gestion de devis et de facturation et de gestion financière pour freelances, PME et Grande Entreprise.',
     stack: ['TypeScript', 'Express', 'Sequelize'],
     type: 'SaaS de facturation',
     status: 'produit personnel',
@@ -206,6 +206,6 @@ export const nav: NavItem[] = [
   { label: 'Services', to: '/services' },
   { label: 'Portfolio', to: '/portfolio' },
   { label: 'À propos', to: '/a-propos' },
-  { label: 'Démo', to: '/demo' },
   { label: 'Contact', to: '/contact' },
+  { label: 'Démo', to: '/demo' },
 ];

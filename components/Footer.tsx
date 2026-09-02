@@ -65,39 +65,45 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Partenariat — ligne de séparation ; logo à la suite de la phrase.
-            z-31 + fond opaque : les particules passent derrière. */}
-        <div className="relative z-[31] mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/10 pt-8">
-          <span className={colLabel}>En partenariat avec</span>
-          <a
-            href={partner.url}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2.5 rounded-lg border border-white/10 bg-navy-800 px-3.5 py-2 transition-colors hover:border-accent/40"
-          >
-            <Image
-              src={partner.logo}
-              alt={partner.name}
-              width={306}
-              height={160}
-              unoptimized
-              className="h-9 w-auto"
-            />
-            <span className="sr-only">{partner.name}</span>
-            <Icon name="external" className="h-3.5 w-3.5 text-white/35" />
-          </a>
+        {/* Partenariat — centré, ligne de séparation au-dessus.
+            fond navy opaque (z-31) : les particules passent derrière le logo. */}
+        <div className="mt-12 border-t border-white/10 pt-10">
+          <div className="relative z-[31] mx-auto flex w-fit flex-wrap items-center justify-center gap-x-6 gap-y-4 bg-navy px-4 text-center">
+            <span className="text-lg text-white/50">En partenariat avec</span>
+            <a
+              href={partner.url}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-opacity hover:opacity-80"
+              aria-label={`${partner.name} — site web`}
+            >
+              <Image
+                src={partner.logo}
+                alt={partner.name}
+                width={306}
+                height={160}
+                unoptimized
+                className="h-16 w-auto sm:h-[4.5rem]"
+              />
+            </a>
+          </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-6 font-mono text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 space-y-3 border-t border-white/10 pt-6 text-xs leading-relaxed text-white/40">
           <p>
-            © {year} {site.name} — {site.legalName}
+            © {year} {site.name} — {site.legalName}. Tous droits réservés. Toute reproduction ou
+            copie, même partielle, de ce site (contenus, code, design) est interdite sans
+            autorisation écrite.
           </p>
-          <div className="flex gap-6">
+          <p>
+            Conçu &amp; développé avec <span className="text-accent">♥</span> en France.
+          </p>
+          <div className="flex gap-6 pt-1">
             <Link href="/mentions-legales" className="transition-colors hover:text-white/70">
               Mentions légales
             </Link>
             <Link href="/confidentialite" className="transition-colors hover:text-white/70">
-              Confidentialité
+              Politique de confidentialité
             </Link>
           </div>
         </div>

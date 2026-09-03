@@ -29,6 +29,12 @@ function getTransporter(): nodemailer.Transporter {
     port: Number(process.env.SMTP_PORT) || 587,
     secure: process.env.SMTP_SECURE === 'true',
     auth: { user, pass },
+    // Échappatoire DEV UNIQUEMENT : certains antivirus (Norton, ESET…) inspectent
+    // le trafic SMTP et présentent un certificat re-signé non vérifiable. Ne
+    // JAMAIS activer en production (le serveur Hostinger n'a pas ce problème).
+    ...(process.env.SMTP_TLS_INSECURE === 'true'
+      ? { tls: { rejectUnauthorized: false } }
+      : {}),
   });
 
   return transporter;

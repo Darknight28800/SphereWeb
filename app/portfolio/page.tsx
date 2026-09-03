@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
 import { Stagger, StaggerItem } from '@/components/Stagger';
+import MetalCard from '@/components/animations/MetalCard';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects } from '@/lib/site';
@@ -31,9 +31,9 @@ export default function PortfolioPage() {
         <Stagger className="mt-12 grid gap-5 sm:grid-cols-2">
           {projects.map((p) => (
             <StaggerItem key={p.slug} hover className="h-full">
-              <Link
+              <MetalCard
                 href={`/portfolio/${p.slug}`}
-                className="group glass-panel flex h-full flex-col"
+                className="glass-panel flex h-full flex-col"
               >
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-start justify-between gap-4">
@@ -57,7 +57,7 @@ export default function PortfolioPage() {
                   Détail du projet
                   <Icon name="arrow-right" className="h-3.5 w-3.5" />
                 </span>
-              </Link>
+              </MetalCard>
             </StaggerItem>
           ))}
         </Stagger>

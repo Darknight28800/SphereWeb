@@ -398,3 +398,148 @@
     transition: opacity 0.4s ease;
   }
 }
+
+/* ======================================================================
+   Effets décoratifs — bordure LED tournante, shine métallisé, bande LED.
+   CSS pur (compatible Tailwind). Respecte prefers-reduced-motion.
+   Composants associés : components/animations/{LedBorderCard,MetalCard}.tsx
+   ====================================================================== */
+
+/* Angle animable pour le conic-gradient (Chrome 85+, FF 128+, Safari 16.4+).
+   Sans @property, la bordure reste visible mais figée. */
+@property --led-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes led-spin {
+  to {
+    --led-angle: 360deg;
+  }
+}
+
+/* --- Bordure lumineuse tournante (effet LED / glow) autour d'une card --- */
+.led-border {
+  position: relative;
+  border-radius: 1rem;
+  isolation: isolate;
+}
+
+/* Le trait lumineux (masqué pour ne garder que le contour) */
+.led-border::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--led-angle),
+    transparent 0%,
+    #5b3df6 14%,
+    #22d3ee 32%,
+    transparent 48%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: led-spin 4.5s linear infinite;
+}
+
+/* Le halo diffus derrière la card */
+.led-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--led-angle),
+    transparent 0%,
+    #5b3df6 14%,
+    #22d3ee 32%,
+    transparent 48%,
+    transparent 100%
+  );
+  filter: blur(11px);
+  opacity: 0.55;
+  animation: led-spin 4.5s linear infinite;
+}
+
+/* --- Shine métallisé au survol (cards portfolio) --- */
+.metal-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.metal-glare::before {
+  content: '';
+  position: absolute;
+  inset-block: -20%;
+  left: -60%;
+  width: 45%;
+  transform: skewX(-18deg);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.08) 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.08) 60%,
+    transparent
+  );
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .metal-glare::before,
+.metal-card:hover .metal-glare::before {
+  left: 130%;
+}
+
+/* --- Bande LED animée (accent de section / bouton CTA) --- */
+.led-band {
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #5b3df6 0%, #22d3ee 50%, #5b3df6 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.45);
+  animation: led-band-flow 3s linear infinite;
+}
+@keyframes led-band-flow {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Variante : liseré LED animé au bas d'un bouton (ex. CTA « Demander un devis ») */
+.led-cta {
+  position: relative;
+  overflow: hidden;
+}
+.led-cta::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #22d3ee, #5b3df6, transparent);
+  background-size: 200% 100%;
+  animation: led-band-flow 2.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-border::before,
+  .led-border::after,
+  .led-band,
+  .led-cta::after {
+    animation: none;
+  }
+  .metal-glare::before {
+    transition: none;
+  }
+}

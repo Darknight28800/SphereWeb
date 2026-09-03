@@ -1,13 +1,21 @@
 'use client';
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import type { ElementType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
+const MOTION_TAGS = {
+  div: motion.div,
+  li: motion.li,
+  section: motion.section,
+  article: motion.article,
+  span: motion.span,
+} as const;
 
 interface RevealProps {
   children: ReactNode;
   /** Décalage d'apparition en secondes (effet d'escalier). */
   delay?: number;
-  as?: 'div' | 'li' | 'section' | 'article' | 'span';
+  as?: keyof typeof MOTION_TAGS;
   className?: string;
 }
 
@@ -20,7 +28,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  */
 export default function Reveal({ children, delay = 0, as = 'div', className }: RevealProps) {
   const reduce = useReducedMotion();
-  const MotionTag = motion[as] as ElementType;
+  const MotionTag = MOTION_TAGS[as];
 
   const variants: Variants = {
     hidden: { opacity: 0, y: reduce ? 0 : 10 },

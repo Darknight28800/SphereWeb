@@ -4,6 +4,10 @@ import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
 import { Stagger, StaggerItem } from '@/components/Stagger';
 import HeroSphere from '@/components/HeroSphere';
+import HeroBackground3D from '@/components/animations/HeroBackground3D';
+import LedBand from '@/components/animations/LedBand';
+import MetalCard from '@/components/animations/MetalCard';
+import ScrollParallax from '@/components/animations/ScrollParallax';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section, SectionHeading } from '@/components/Section';
 import { projects, services, site } from '@/lib/site';
@@ -28,7 +32,10 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-white/10 bg-navy">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
+        <ScrollParallax speed={0.35} className="pointer-events-none absolute inset-x-0 top-0 h-[160%]">
+          <div aria-hidden="true" className="absolute inset-0 aura" />
+        </ScrollParallax>
+        <HeroBackground3D className="pointer-events-none absolute inset-0 opacity-70" />
         <div className="container-page relative grid gap-10 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:py-28">
           <Stagger gap={0.12}>
             <StaggerItem>
@@ -55,8 +62,8 @@ export default function HomePage() {
               </p>
             </StaggerItem>
             <StaggerItem>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link href="/contact" className="btn-primary">
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <Link href="/contact" className="btn-primary led-cta">
                   Demander un devis
                   <Icon name="arrow-right" className="h-4 w-4" />
                 </Link>
@@ -64,6 +71,7 @@ export default function HomePage() {
                   Voir les services
                 </Link>
               </div>
+              <LedBand className="mt-8 max-w-[140px]" />
             </StaggerItem>
             <StaggerItem>
               <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-8 sm:grid-cols-3">
@@ -135,9 +143,9 @@ export default function HomePage() {
         <Stagger className="mt-14 grid gap-5 md:grid-cols-3">
           {featured.map((p) => (
             <StaggerItem key={p.slug} hover className="h-full">
-              <Link
+              <MetalCard
                 href={`/portfolio/${p.slug}`}
-                className="group glass-panel flex h-full flex-col"
+                className="glass-panel flex h-full flex-col"
               >
                 <ProjectThumb project={p} className="mb-5" />
                 <div className="flex items-center justify-between gap-3">
@@ -152,7 +160,7 @@ export default function HomePage() {
                 <p className="mt-auto pt-4 font-mono text-xs text-neutraltxt">
                   {p.stack.join(' · ')}
                 </p>
-              </Link>
+              </MetalCard>
             </StaggerItem>
           ))}
         </Stagger>

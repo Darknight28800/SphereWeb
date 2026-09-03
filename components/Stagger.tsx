@@ -1,16 +1,19 @@
 'use client';
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import type { ElementType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+const CONTAINER_TAGS = { div: motion.div, ol: motion.ol, ul: motion.ul } as const;
+const ITEM_TAGS = { div: motion.div, li: motion.li, article: motion.article } as const;
 
 interface StaggerProps {
   children: ReactNode;
   className?: string;
   /** Intervalle entre chaque enfant, en secondes. */
   gap?: number;
-  as?: 'div' | 'ol' | 'ul';
+  as?: keyof typeof CONTAINER_TAGS;
 }
 
 /**
@@ -18,7 +21,7 @@ interface StaggerProps {
  * dans le viewport — et les fait disparaître quand il en sort.
  */
 export function Stagger({ children, className, gap = 0.09, as = 'div' }: StaggerProps) {
-  const MotionTag = motion[as] as ElementType;
+  const MotionTag = CONTAINER_TAGS[as];
   return (
     <MotionTag
       className={className}
@@ -38,7 +41,7 @@ export function Stagger({ children, className, gap = 0.09, as = 'div' }: Stagger
 interface StaggerItemProps {
   children: ReactNode;
   className?: string;
-  as?: 'div' | 'li' | 'article';
+  as?: keyof typeof ITEM_TAGS;
   id?: string;
   /** Léger soulèvement au survol (cartes). */
   hover?: boolean;
@@ -46,7 +49,7 @@ interface StaggerItemProps {
 
 export function StaggerItem({ children, className, as = 'div', id, hover = false }: StaggerItemProps) {
   const reduce = useReducedMotion();
-  const MotionTag = motion[as] as ElementType;
+  const MotionTag = ITEM_TAGS[as];
 
   const variants: Variants = {
     hidden: { opacity: 0, y: reduce ? 0 : 12 },

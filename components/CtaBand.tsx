@@ -15,6 +15,7 @@ export default function CtaBand({
     <section className="relative overflow-hidden border-t border-white/10 bg-navy py-16 sm:py-24">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
       <div className="container-page relative">
+        <div className="led-border">
         <div className="beam-target glass glass-sheen relative overflow-hidden p-8 sm:p-12">
           <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
@@ -25,7 +26,7 @@ export default function CtaBand({
               <h2 className="text-2xl sm:text-3xl">{title}</h2>
               <p className="mt-4 prose-light">{text}</p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Link href="/contact" className="btn-primary">
+                <Link href="/contact" className="btn-primary led-cta">
                   Demander un devis
                   <Icon name="arrow-right" className="h-4 w-4" />
                 </Link>
@@ -42,6 +43,7 @@ export default function CtaBand({
               {site.email}
             </a>
           </div>
+        </div>
         </div>
       </div>
     </section>

@@ -56,14 +56,11 @@ export default function Header() {
               key={item.to}
               href={item.to}
               aria-current={isActive(item.to) ? 'page' : undefined}
-              className={`font-mono text-[13px] tracking-wide transition-colors ${
-                isActive(item.to)
-                  ? 'text-accent'
-                  : 'text-white/60 hover:text-white'
+              className={`text-sm font-medium tracking-wide transition-colors ${
+                isActive(item.to) ? 'text-accent' : 'text-white/70 hover:text-white'
               }`}
             >
-              {isActive(item.to) && <span className="mr-1 text-accent">/</span>}
-              {item.label.toLowerCase()}
+              {item.label}
             </Link>
           ))}
           <Link href="/contact" className="btn-primary px-4 py-2.5">
@@ -107,11 +104,11 @@ export default function Header() {
                 key={item.to}
                 href={item.to}
                 aria-current={isActive(item.to) ? 'page' : undefined}
-                className={`rounded-[3px] px-3 py-3 font-mono text-sm tracking-wide ${
-                  isActive(item.to) ? 'bg-navy-800 text-accent' : 'text-white/75 hover:bg-navy-800'
+                className={`rounded-lg px-3 py-3 text-base font-medium tracking-wide ${
+                  isActive(item.to) ? 'bg-navy-800 text-accent' : 'text-white/80 hover:bg-navy-800'
                 }`}
               >
-                {item.label.toLowerCase()}
+                {item.label}
               </Link>
             ))}
             <Link href="/contact" className="btn-primary mt-2 w-full">

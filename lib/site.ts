@@ -5,7 +5,7 @@ export const site = {
   name: 'SphereWeb',
   legalName: 'David ANTOINA',
   role: 'Développeur web et web mobile fullstack',
-  baseline: 'SphereWeb, le centre de gravité de votre projet web.',
+  baseline: 'SphereWeb, le centre de gravité de votre projet web',
   // Domaine officiel retenu (postérieur à la charte, qui mentionnait sphere-web.com).
   url: 'https://sphereweb-dev.com',
   email: 'david-antoina@sphereweb-dev.com',

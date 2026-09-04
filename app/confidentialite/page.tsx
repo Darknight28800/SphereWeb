@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <Section>
+    <Section className="aura">
       <LegalDoc title="Politique de confidentialité" updated="Août 2026">
         <p>
           Cette politique décrit comment {site.legalName} («&nbsp;{site.name}&nbsp;») traite les

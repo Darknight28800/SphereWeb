@@ -27,7 +27,7 @@ export default function HeroBackground3D({ className }: { className?: string }) 
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)');
+    const mq = window.matchMedia('(min-width: 768px)');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setEnabled(mq.matches && !reduce);
 

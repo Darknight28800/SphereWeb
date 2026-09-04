@@ -58,8 +58,10 @@
 }
 
 @layer components {
+  /* Pleine largeur : pas de plafond, seulement des marges qui s'ouvrent.
+     La lisibilité est assurée par les max-w-* locaux sur les blocs de texte. */
   .container-page {
-    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+    @apply mx-auto w-full px-5 sm:px-8 lg:px-14 xl:px-20 2xl:px-28;
   }
 
   /* --- Liquid glass --- */

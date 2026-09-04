@@ -15,8 +15,20 @@ export function LegalDoc({
 }) {
   return (
     <article className="mx-auto max-w-3xl">
-      <h1 className="text-3xl sm:text-4xl">{title}</h1>
-      <p className="mt-2 text-sm text-white/40">Dernière mise à jour : {updated}</p>
+      <p className="eyebrow mb-6">
+        <span className="text-white/30">§</span>
+        <span
+          className="h-px w-10 bg-gradient-to-r from-accent to-transparent"
+          aria-hidden="true"
+        />
+        <span>Légal</span>
+      </p>
+      <h1 className="font-heading text-[clamp(2.2rem,4.5vw,3.4rem)] font-bold leading-[1.05] tracking-[-0.035em]">
+        {title}
+      </h1>
+      <p className="mt-3 font-mono text-xs uppercase tracking-widest text-white/35">
+        Dernière mise à jour&nbsp;: {updated}
+      </p>
       <div
         className="mt-10 space-y-4 text-white/75 [&_a]:text-accent [&_a]:underline [&_a]:underline-offset-4
           [&_h2]:mt-10 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-white

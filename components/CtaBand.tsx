@@ -12,19 +12,24 @@ export default function CtaBand({
   text = "Parlons-en. Décrivez-moi votre besoin en quelques lignes, je vous réponds sous 48 h ouvrées avec un premier avis et les prochaines étapes.",
 }: CtaBandProps) {
   return (
-    <section className="relative overflow-hidden border-t border-white/10 bg-navy py-16 sm:py-24">
+    <section className="relative overflow-hidden border-t border-white/10 bg-navy py-20 sm:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 aura" />
       <div className="container-page relative">
         <div className="led-border">
-        <div className="beam-target glass glass-sheen relative overflow-hidden p-8 sm:p-12">
+        <div className="beam-target glass glass-sheen relative overflow-hidden p-8 sm:p-14">
           <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-xl">
-              <p className="eyebrow mb-4">
-                <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+              <p className="eyebrow mb-5">
+                <span
+                  className="h-px w-10 bg-gradient-to-r from-accent to-transparent"
+                  aria-hidden="true"
+                />
                 <span>Contact</span>
               </p>
-              <h2 className="text-2xl sm:text-3xl">{title}</h2>
-              <p className="mt-4 prose-light">{text}</p>
+              <h2 className="font-heading text-[clamp(1.9rem,4vw,3rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+                {title}
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-white/70">{text}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/contact" className="btn-primary led-cta">
                   Demander un devis

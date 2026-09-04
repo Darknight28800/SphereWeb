@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import ContactForm from '@/components/ContactForm';
+import PageHeader from '@/components/PageHeader';
 import { Section } from '@/components/Section';
 import { site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
@@ -14,21 +15,18 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <Section className="aura">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-start">
-        <div>
-          <p className="eyebrow mb-4">
-            <span className="text-white/30">00</span>
-            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
-            <span>Contact</span>
-          </p>
-          <h1 className="text-3xl sm:text-4xl">Parlons de votre projet</h1>
-          <p className="mt-4 prose-light">
-            Quelques lignes sur votre besoin suffisent pour démarrer. Je vous réponds sous 48 h
-            ouvrées avec un premier avis, les questions utiles et les prochaines étapes.
-          </p>
+    <>
+      <PageHeader
+        index="00"
+        eyebrow="Contact"
+        title="Parlons de votre projet"
+        intro="Quelques lignes sur votre besoin suffisent pour démarrer. Je vous réponds sous 48 h ouvrées avec un premier avis, les questions utiles et les prochaines étapes."
+      />
 
-          <div className="mt-8 space-y-4 text-sm">
+      <Section>
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+          <div>
+            <div className="space-y-4 text-sm">
             <a
               href={`mailto:${site.email}`}
               className="inline-flex items-center gap-3 text-white/75 hover:text-accent"
@@ -55,8 +53,9 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <ContactForm />
-      </div>
-    </Section>
+          <ContactForm />
+        </div>
+      </Section>
+    </>
   );
 }

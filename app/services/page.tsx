@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
-import Reveal from '@/components/Reveal';
+import PageHeader from '@/components/PageHeader';
 import { Stagger, StaggerItem } from '@/components/Stagger';
-import { Section, SectionHeading } from '@/components/Section';
+import { Section } from '@/components/Section';
 import { services } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -17,17 +17,15 @@ export const metadata = pageMetadata({
 export default function ServicesPage() {
   return (
     <>
-      <Section className="aura">
-        <Reveal>
-          <SectionHeading
-            index="01"
-            eyebrow="Services"
-            title="Sites, applications et suivi technique"
-            intro="Je présente mes services sans grille tarifaire : chaque projet est différent, chaque devis l'est aussi. Vous m'exposez votre besoin, je vous réponds avec une proposition claire."
-          />
-        </Reveal>
+      <PageHeader
+        index="01"
+        eyebrow="Services"
+        title="Sites, applications et suivi technique"
+        intro="Je présente mes services sans grille tarifaire : chaque projet est différent, chaque devis l'est aussi. Vous m'exposez votre besoin, je vous réponds avec une proposition claire."
+      />
 
-        <Stagger className="mt-16 space-y-6" gap={0.12}>
+      <Section>
+        <Stagger className="space-y-6" gap={0.12}>
           {services.map((s, i) => (
             <StaggerItem
               key={s.key}
@@ -63,12 +61,17 @@ export default function ServicesPage() {
       <Section tone="panel" className="border-y border-white/10">
         <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div>
-            <p className="eyebrow mb-4">
-              <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+            <p className="eyebrow mb-5">
+              <span
+                className="h-px w-10 bg-gradient-to-r from-accent to-transparent"
+                aria-hidden="true"
+              />
               <span>Bon à savoir</span>
             </p>
-            <h2 className="text-2xl sm:text-3xl">Pas de devis ? Pas de projet.</h2>
-            <p className="mt-4 prose-light">
+            <h2 className="font-heading text-[clamp(1.9rem,4vw,3rem)] font-bold leading-[1.05] tracking-[-0.03em]">
+              Pas de devis ? Pas de projet.
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-white/65">
               Le premier échange et le devis sont gratuits et sans engagement. Je ne démarre rien tant
               que le périmètre, le calendrier et le budget ne sont pas validés par écrit.
             </p>

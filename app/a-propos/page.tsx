@@ -1,6 +1,7 @@
 import CtaBand from '@/components/CtaBand';
 import Icon from '@/components/Icon';
 import Reveal from '@/components/Reveal';
+import PageHeader from '@/components/PageHeader';
 import { Stagger, StaggerItem } from '@/components/Stagger';
 import { Section, SectionHeading } from '@/components/Section';
 import { site } from '@/lib/site';
@@ -24,15 +25,12 @@ const values: [string, string][] = [
 export default function AboutPage() {
   return (
     <>
-      <Section className="aura">
+      <PageHeader index="01" eyebrow="À propos" title={`${site.legalName}, derrière SphereWeb`} />
+
+      <Section>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start">
           <div>
-            <SectionHeading
-              index="01"
-              eyebrow="À propos"
-              title={`${site.legalName}, derrière SphereWeb`}
-            />
-            <div className="mt-6 space-y-5 text-lg prose-light">
+            <div className="space-y-5 text-lg leading-relaxed text-white/70">
               <p>
                 Après une reconversion motivée par la volonté de gagner en liberté et en autonomie,
                 j&apos;ai suivi une formation en développement web pour transformer cette envie en

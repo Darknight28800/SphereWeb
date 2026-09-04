@@ -30,7 +30,7 @@ const config: Config = {
         mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       maxWidth: {
-        content: '72rem',
+        content: '92rem',
       },
       keyframes: {
         'fade-up': {

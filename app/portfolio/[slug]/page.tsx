@@ -52,13 +52,18 @@ export default async function ProjectDetailPage({
           Portfolio
         </Link>
 
-        <header className="mt-8 max-w-3xl">
-          <p className="eyebrow mb-4">
-            <span className="h-px w-8 bg-white/15" aria-hidden="true" />
+        <header className="mt-10 max-w-4xl">
+          <p className="eyebrow mb-5">
+            <span
+              className="h-px w-10 bg-gradient-to-r from-accent to-transparent"
+              aria-hidden="true"
+            />
             <span>{project.type}</span>
           </p>
-          <h1 className="text-3xl sm:text-4xl">{project.name}</h1>
-          <p className="mt-4 text-lg prose-light">{project.tagline}</p>
+          <h1 className="font-heading text-[clamp(2.4rem,5.5vw,4.25rem)] font-bold leading-[1.0] tracking-[-0.04em]">
+            {project.name}
+          </h1>
+          <p className="mt-5 text-lg leading-relaxed text-white/65">{project.tagline}</p>
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.map((tech) => (
               <span

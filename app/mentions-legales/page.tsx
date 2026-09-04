@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 
 export default function LegalNoticePage() {
   return (
-    <Section>
+    <Section className="aura">
       <LegalDoc title="Mentions légales" updated="Août 2026">
         <h2>1. Éditeur du site</h2>
         <p>

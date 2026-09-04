@@ -1,10 +1,10 @@
 import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
-import Reveal from '@/components/Reveal';
+import PageHeader from '@/components/PageHeader';
 import { Stagger, StaggerItem } from '@/components/Stagger';
 import MetalCard from '@/components/animations/MetalCard';
 import { ProjectThumb } from '@/components/ProjectMedia';
-import { Section, SectionHeading } from '@/components/Section';
+import { Section } from '@/components/Section';
 import { projects } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
@@ -18,17 +18,15 @@ export const metadata = pageMetadata({
 export default function PortfolioPage() {
   return (
     <>
-      <Section className="aura">
-        <Reveal>
-          <SectionHeading
-            index="01"
-            eyebrow="Portfolio"
-            title="Réalisations"
-            intro="Des projets menés pour des clients et des produits que je développe et maintiens moi-même."
-          />
-        </Reveal>
+      <PageHeader
+        index="01"
+        eyebrow="Portfolio"
+        title="Réalisations"
+        intro="Des projets menés pour des clients et des produits que je développe et maintiens moi-même."
+      />
 
-        <Stagger className="mt-12 grid gap-5 sm:grid-cols-2">
+      <Section>
+        <Stagger className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {projects.map((p) => (
             <StaggerItem key={p.slug} hover className="h-full">
               <MetalCard

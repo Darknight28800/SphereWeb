@@ -15,7 +15,7 @@ const toneMap: Record<NonNullable<SectionProps['tone']>, string> = {
 
 export function Section({ children, className = '', tone = 'navy', id }: SectionProps) {
   return (
-    <section id={id} className={`${toneMap[tone]} py-16 sm:py-24 ${className}`}>
+    <section id={id} className={`${toneMap[tone]} py-20 sm:py-28 lg:py-32 ${className}`}>
       <div className="container-page">{children}</div>
     </section>
   );
@@ -31,7 +31,7 @@ interface SectionHeadingProps {
   center?: boolean;
 }
 
-/** En-tête de section : libellé indexé monospace + titre + intro. */
+/** En-tête de section : libellé indexé monospace + grand titre + intro. */
 export function SectionHeading({
   index,
   eyebrow,
@@ -42,21 +42,32 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   const dark = tone !== 'mist';
   return (
-    <div className={`${center ? 'mx-auto text-center' : ''} max-w-2xl`}>
+    <div className={`${center ? 'mx-auto text-center' : ''} max-w-3xl`}>
       {eyebrow && (
         <p
-          className={`eyebrow mb-4 ${center ? 'justify-center' : ''} ${
-            dark ? '' : 'text-brand'
-          }`}
+          className={`eyebrow mb-5 ${center ? 'justify-center' : ''} ${dark ? '' : 'text-brand'}`}
         >
-          {index && <span className={dark ? 'text-white/30' : 'text-ink/40'}>{index}</span>}
-          <span className={`h-px w-8 ${dark ? 'bg-white/15' : 'bg-ink/20'}`} aria-hidden="true" />
+          {index && <span className={dark ? 'text-white/30' : 'text-ink/40'}>§&nbsp;{index}</span>}
+          <span
+            className={`h-px w-10 ${
+              dark ? 'bg-gradient-to-r from-accent to-transparent' : 'bg-ink/20'
+            }`}
+            aria-hidden="true"
+          />
           <span>{eyebrow}</span>
         </p>
       )}
-      <h2 className={`text-2xl sm:text-[2rem] ${dark ? '' : 'text-navy'}`}>{title}</h2>
+      <h2
+        className={`font-heading text-[clamp(1.9rem,4vw,3rem)] font-bold leading-[1.05] tracking-[-0.03em] ${
+          dark ? '' : 'text-navy'
+        }`}
+      >
+        {title}
+      </h2>
       {intro && (
-        <p className={`mt-4 text-base ${dark ? 'prose-light' : 'text-ink/80'}`}>{intro}</p>
+        <p className={`mt-5 text-lg leading-relaxed ${dark ? 'text-white/65' : 'text-ink/80'}`}>
+          {intro}
+        </p>
       )}
     </div>
   );

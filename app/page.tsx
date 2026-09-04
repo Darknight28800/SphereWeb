@@ -3,7 +3,6 @@ import Icon from '@/components/Icon';
 import CtaBand from '@/components/CtaBand';
 import Reveal from '@/components/Reveal';
 import { Stagger, StaggerItem } from '@/components/Stagger';
-import HeroSphere from '@/components/HeroSphere';
 import HeroBackground3D from '@/components/animations/HeroBackground3D';
 import LedBand from '@/components/animations/LedBand';
 import MetalCard from '@/components/animations/MetalCard';
@@ -30,66 +29,128 @@ const steps: [string, string, string][] = [
 export default function HomePage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-white/10 bg-navy">
-        <ScrollParallax speed={0.35} className="pointer-events-none absolute inset-x-0 top-0 h-[160%]">
+      {/* Hero — pleine largeur, cadrage éditorial premium */}
+      <section className="relative flex min-h-[94vh] flex-col overflow-hidden bg-navy">
+        {/* Halo de fond parallaxé */}
+        <ScrollParallax speed={0.28} className="pointer-events-none absolute inset-0 h-[150%]">
           <div aria-hidden="true" className="absolute inset-0 aura" />
         </ScrollParallax>
-        <HeroBackground3D className="pointer-events-none absolute inset-0 opacity-70" />
-        <div className="container-page relative grid gap-10 py-16 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-14 lg:py-28">
-          <Stagger gap={0.12}>
-            <StaggerItem>
-              <p className="eyebrow mb-6">
-                <span className="text-white/30">00</span>
-                <span className="h-px w-8 bg-white/15" aria-hidden="true" />
-                <span>{site.role}</span>
-              </p>
-            </StaggerItem>
-            <StaggerItem>
-              <h1 className="text-[2.6rem] leading-[1.05] sm:text-5xl md:text-[3.75rem]">
-                Le centre de gravité de votre{' '}
-                <span className="whitespace-nowrap border-b-2 border-brand pb-1 text-white">
-                  projet web
-                </span>
-                .
-              </h1>
-            </StaggerItem>
-            <StaggerItem>
-              <p className="mt-7 max-w-xl text-lg prose-light">
-                Je suis {site.legalName}, développeur freelance fullstack. J&apos;accompagne
-                indépendants, artisans et petites structures dans la conception de leur site ou de
-                leur application — de la première maquette à la mise en production.
-              </p>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="mt-9 flex flex-wrap items-center gap-3">
-                <Link href="/contact" className="btn-primary led-cta">
-                  Demander un devis
-                  <Icon name="arrow-right" className="h-4 w-4" />
-                </Link>
-                <Link href="/services" className="btn-outline">
-                  Voir les services
-                </Link>
-              </div>
-              <LedBand className="mt-8 max-w-[140px]" />
-            </StaggerItem>
-            <StaggerItem>
-              <dl className="mt-14 grid max-w-xl grid-cols-2 gap-x-8 gap-y-6 border-t border-white/10 pt-8 sm:grid-cols-3">
-                {proof.map(([term, desc]) => (
-                  <div key={term}>
-                    <dt className="font-mono text-sm font-medium uppercase tracking-wider text-accent">
-                      {term}
-                    </dt>
-                    <dd className="mt-2 text-sm text-white/55">{desc}</dd>
-                  </div>
-                ))}
-              </dl>
-            </StaggerItem>
-          </Stagger>
 
-          <HeroSphere className="w-3/4 max-w-[260px] sm:max-w-[320px] lg:w-full lg:max-w-[480px]" />
+        {/* Sphère 3D — à droite, entièrement visible */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 w-full sm:w-[62%] lg:w-[56%]"
+        >
+          <div
+            className="absolute left-1/2 top-1/2 aspect-square w-[80%] -translate-x-1/2 -translate-y-1/2"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(91,61,246,0.24) 0%, rgba(34,211,238,0.06) 45%, transparent 70%)',
+            }}
+          />
+          <HeroBackground3D className="absolute inset-0" />
+        </div>
+
+        {/* Voile dégradé, ancré à gauche */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy from-12% via-navy/55 via-40% to-transparent to-60%"
+        />
+
+        {/* Barre supérieure */}
+        <div className="relative z-10 border-b border-white/[0.07]">
+          <div className="container-page flex items-center justify-between py-4 font-mono text-[11px] uppercase tracking-[0.28em] text-white/35">
+            <span className="text-white/55">SphereWeb</span>
+            <span className="hidden sm:block">{site.location}</span>
+            <span>Freelance&nbsp;·&nbsp;{new Date().getFullYear()}</span>
+          </div>
+        </div>
+
+        {/* Contenu principal */}
+        <div className="relative z-10 flex flex-1 items-center">
+          <div className="container-page w-full py-16 lg:py-20">
+            <Stagger gap={0.1} className="max-w-4xl">
+              <StaggerItem>
+                <p className="eyebrow mb-8">
+                  <span className="text-white/30">§&nbsp;00</span>
+                  <span
+                    className="h-px w-12 bg-gradient-to-r from-accent to-transparent"
+                    aria-hidden="true"
+                  />
+                  <span>{site.role}</span>
+                </p>
+              </StaggerItem>
+              <StaggerItem>
+                <h1 className="font-heading text-[clamp(2.9rem,7.5vw,6.25rem)] font-bold leading-[0.98] tracking-[-0.04em]">
+                  Le centre de gravité
+                  <br />
+                  de votre{' '}
+                  <span className="bg-gradient-to-r from-accent via-brand-400 to-brand bg-clip-text text-transparent">
+                    projet web
+                  </span>
+                  .
+                </h1>
+              </StaggerItem>
+              <StaggerItem>
+                <p className="mt-9 max-w-xl text-lg leading-relaxed text-white/70">
+                  Je suis {site.legalName}, {site.role.toLowerCase()}. J&apos;accompagne indépendants,
+                  artisans et petites structures dans la conception de leur site ou de leur
+                  application — de la première maquette à la mise en production.
+                </p>
+              </StaggerItem>
+              <StaggerItem>
+                <div className="mt-11 flex flex-wrap items-center gap-4">
+                  <Link href="/contact" className="btn-primary led-cta">
+                    Demander un devis
+                    <Icon name="arrow-right" className="h-4 w-4" />
+                  </Link>
+                  <Link href="/services" className="btn-outline">
+                    Voir les services
+                  </Link>
+                </div>
+              </StaggerItem>
+              <StaggerItem>
+                <dl className="mt-16 flex flex-wrap gap-x-12 gap-y-6 border-t border-white/10 pt-8">
+                  {proof.map(([term, desc], i) => (
+                    <div
+                      key={term}
+                      className={i > 0 ? 'sm:border-l sm:border-white/10 sm:pl-12' : undefined}
+                    >
+                      <dt className="font-mono text-sm font-semibold uppercase tracking-wider text-accent">
+                        {term}
+                      </dt>
+                      <dd className="mt-1.5 max-w-[20ch] text-sm text-white/50">{desc}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </StaggerItem>
+            </Stagger>
+          </div>
+        </div>
+
+        {/* Barre inférieure */}
+        <div className="relative z-10 border-t border-white/[0.07]">
+          <div className="container-page flex items-center justify-between py-4">
+            <span className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.28em] text-white/35">
+              <span className="motion-safe:animate-bounce" aria-hidden="true">
+                ↓
+              </span>
+              Défiler
+            </span>
+            <span className="flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-white/45">
+                Disponible pour un projet
+              </span>
+            </span>
+          </div>
         </div>
       </section>
+
+      <LedBand className="h-[3px]" />
 
       {/* Services */}
       <Section>
@@ -101,7 +162,7 @@ export default function HomePage() {
             intro="Trois façons de travailler ensemble, sans grille tarifaire : chaque projet fait l'objet d'un devis sur mesure."
           />
         </Reveal>
-        <Stagger className="mt-14 grid gap-5 md:grid-cols-3">
+        <Stagger className="mt-16 grid gap-6 md:grid-cols-3">
           {services.map((s, i) => (
             <StaggerItem
               key={s.key}
@@ -140,7 +201,7 @@ export default function HomePage() {
             </Link>
           </div>
         </Reveal>
-        <Stagger className="mt-14 grid gap-5 md:grid-cols-3">
+        <Stagger className="mt-16 grid gap-6 md:grid-cols-3">
           {featured.map((p) => (
             <StaggerItem key={p.slug} hover className="h-full">
               <MetalCard
@@ -181,7 +242,7 @@ export default function HomePage() {
             intro="Vous savez à chaque étape où en est le projet et ce qui vous est demandé."
           />
         </Reveal>
-        <Stagger as="ol" className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <Stagger as="ol" className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map(([num, title, desc]) => (
             <StaggerItem
               key={num}

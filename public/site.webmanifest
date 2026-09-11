@@ -1,7 +1,7 @@
 {
-  "name": "SphereWeb",
-  "short_name": "SphereWeb",
-  "description": "SphereWeb, le centre de gravité de votre projet web.",
+  "name": "Kaylow Sphere",
+  "short_name": "Kaylow Sphere",
+  "description": "Kaylow Sphere, le centre de gravité de votre projet web.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#050B2B",

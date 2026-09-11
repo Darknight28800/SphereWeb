@@ -60,7 +60,7 @@ export default function HomePage() {
         {/* Barre supérieure */}
         <div className="relative z-10 border-b border-white/[0.07]">
           <div className="container-page flex items-center justify-between py-4 font-mono text-[11px] uppercase tracking-[0.28em] text-white/35">
-            <span className="text-white/55">SphereWeb</span>
+            <span className="text-white/55">{site.name}</span>
             <span className="hidden sm:block">{site.location}</span>
             <span>Freelance&nbsp;·&nbsp;{new Date().getFullYear()}</span>
           </div>

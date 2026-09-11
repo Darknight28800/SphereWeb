@@ -1,8 +1,8 @@
 {
-  "name": "sphereweb",
+  "name": "kaylow-sphere",
   "version": "2.0.0",
   "private": true,
-  "description": "Site officiel de SphereWeb — David Antoina, développeur freelance fullstack.",
+  "description": "Site officiel de Kaylow Sphere — David Antoina, développeur freelance fullstack.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

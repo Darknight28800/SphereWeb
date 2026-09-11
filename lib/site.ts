@@ -1,14 +1,15 @@
-// Contenu de référence — Charte SphereWeb v2.0 (Août 2026).
-// Source unique de vérité pour les textes, coordonnées et métadonnées.
+// Contenu de référence — anciennement Charte SphereWeb v2.0 (Août 2026),
+// rebaptisé Kaylow Sphere. Source unique de vérité pour les textes,
+// coordonnées et métadonnées.
 
 export const site = {
-  name: 'SphereWeb',
+  name: 'Kaylow Sphere',
   legalName: 'David ANTOINA',
   role: 'Développeur web et web mobile fullstack',
-  baseline: 'SphereWeb, le centre de gravité de votre projet web',
-  // Domaine officiel retenu (postérieur à la charte, qui mentionnait sphere-web.com).
-  url: 'https://sphereweb-dev.com',
-  email: 'david-antoina@sphereweb-dev.com',
+  baseline: 'Kaylow Sphere, le centre de gravité de votre projet web',
+  // Domaine officiel (anciennement sphereweb-dev.com, avant ça sphere-web.com).
+  url: 'https://kaylowsphere.com',
+  email: 'david.antoina@kaylowsphere.com',
   location: 'Eure-et-Loir (28)',
   status: 'Micro-entrepreneur',
   siret: '10673178900017',

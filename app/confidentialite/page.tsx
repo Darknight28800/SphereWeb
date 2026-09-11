@@ -5,8 +5,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
   title: 'Politique de confidentialité',
-  description:
-    'Comment sont traitées les données personnelles collectées sur sphereweb-dev.com, conformément au RGPD.',
+  description: `Comment sont traitées les données personnelles collectées sur ${site.url.replace('https://', '')}, conformément au RGPD.`,
   path: '/confidentialite',
   noindex: true,
 });

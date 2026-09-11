@@ -47,7 +47,7 @@ function escapeHtml(str: string): string {
   );
 }
 
-/** Envoie le message du formulaire de contact vers la boîte SphereWeb. */
+/** Envoie le message du formulaire de contact vers la boîte Kaylow Sphere. */
 export async function sendContactEmail(data: ContactPayload) {
   const { name, email, projectType = 'Non précisé', message, meta = {} } = data;
   const receivedAt = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });

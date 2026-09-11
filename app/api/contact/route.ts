@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { sendContactEmail } from '@/lib/mailer';
+import { site } from '@/lib/site';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -70,8 +71,7 @@ export async function POST(request: Request) {
     console.error('[api/contact] Échec de l’envoi :', err);
     return NextResponse.json(
       {
-        error:
-          "Le message n'a pas pu être envoyé pour le moment. Vous pouvez m'écrire directement à david-antoina@sphereweb-dev.com.",
+        error: `Le message n'a pas pu être envoyé pour le moment. Vous pouvez m'écrire directement à ${site.email}.`,
       },
       { status: 502 },
     );

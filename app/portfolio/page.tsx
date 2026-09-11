@@ -5,13 +5,12 @@ import { Stagger, StaggerItem } from '@/components/Stagger';
 import MetalCard from '@/components/animations/MetalCard';
 import { ProjectThumb } from '@/components/ProjectMedia';
 import { Section } from '@/components/Section';
-import { projects } from '@/lib/site';
+import { projects, site } from '@/lib/site';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
   title: 'Portfolio',
-  description:
-    'Réalisations SphereWeb : Trouve Ton Artisan, TPAK, GDF et Nexus. Projets clients et produits développés en propre.',
+  description: `Réalisations ${site.name} : Trouve Ton Artisan, TPAK, GDF et Nexus. Projets clients et produits développés en propre.`,
   path: '/portfolio',
 });
 

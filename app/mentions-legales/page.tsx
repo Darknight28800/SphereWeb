@@ -6,8 +6,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
   title: 'Mentions légales',
-  description:
-    'Mentions légales du site sphereweb-dev.com — éditeur, hébergeur et propriété intellectuelle.',
+  description: `Mentions légales du site ${site.url.replace('https://', '')} — éditeur, hébergeur et propriété intellectuelle.`,
   path: '/mentions-legales',
   noindex: true,
 });

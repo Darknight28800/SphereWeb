@@ -1,4 +1,4 @@
-# SphereWeb — Récapitulatif & reprise sur un autre poste
+# Kaylow Sphere — Récapitulatif & reprise sur un autre poste
 
 > Document de passation. Généré le 2026-09-02.
 > À transmettre à Claude Code sur l'autre PC pour reprendre le travail.
@@ -7,13 +7,13 @@
 
 ## 1. Le projet en deux lignes
 
-Site vitrine officiel de **SphereWeb**, la marque de **David Antoina**, développeur
+Site vitrine officiel de **Kaylow Sphere**, la marque de **David Antoina**, développeur
 freelance fullstack (micro-entreprise, Eure-et-Loir · 28).
-Baseline : « SphereWeb, le centre de gravité de votre projet web. »
+Baseline : « Kaylow Sphere, le centre de gravité de votre projet web. »
 
 - **Dépôt** : https://github.com/Darknight28800/SphereWeb.git (branche `main`)
-- **Domaine cible** : `sphereweb-dev.com`
-- **E-mail contact** : `david-antoina@sphereweb-dev.com` (boîte Hostinger)
+- **Domaine cible** : `kaylowsphere.com`
+- **E-mail contact** : `david.antoina@kaylowsphere.com` (boîte Hostinger)
 - **Hébergement prévu** : Hostinger, offre mutualisée **Business avec application Node.js**
   (hPanel → Site web → Avancé → Node.js). `next.config.mjs` est en `output: 'standalone'`.
 - **Charte de référence** : `docs/Charte_SphereWeb.docx` (v2.0, Août 2026).
@@ -96,7 +96,7 @@ Rien d'autre à installer globalement.
   projets, coordonnées, partenaire).
 - Formulaire de contact : route API + nodemailer + zod + honeypot + rate-limit.
 - SEO : `lib/seo.ts` (metadata par page), `app/sitemap.ts`, `app/robots.ts`.
-- Passage de la cible d'hébergement à **Hostinger** + domaine **sphereweb-dev.com**
+- Passage de la cible d'hébergement à **Hostinger** + domaine **kaylowsphere.com**
   + `output: 'standalone'`.
 
 ### Marque / contenu légal
@@ -167,7 +167,7 @@ Rien d'autre à installer globalement.
 7. Page **CGV** si devis / paiements en ligne (Charte §4).
 8. Éventuel **outil d'audience sans cookie** (Plausible / Matomo) — à décider.
 9. **Déploiement Hostinger** : `npm ci && npm run build && npm run start` sur l'offre
-   Node.js, variables d'env côté hPanel, `CORS`/domaine sur `https://sphereweb-dev.com`.
+   Node.js, variables d'env côté hPanel, `CORS`/domaine sur `https://kaylowsphere.com`.
    (Pas d'export statique possible à cause de la route `/api/contact`.)
 
 ---
@@ -215,9 +215,9 @@ docs/                   Charte + ce document
 | `SMTP_HOST` | `smtp.hostinger.com` |
 | `SMTP_PORT` | `465` |
 | `SMTP_SECURE` | `true` |
-| `SMTP_USER` | `david-antoina@sphereweb-dev.com` |
+| `SMTP_USER` | `david.antoina@kaylowsphere.com` |
 | `SMTP_PASS` | *(mot de passe de la boîte mail — à renseigner)* |
-| `MAIL_FROM` | `"SphereWeb <david-antoina@sphereweb-dev.com>"` |
-| `MAIL_TO` | `david-antoina@sphereweb-dev.com` |
+| `MAIL_FROM` | `"Kaylow Sphere <david.antoina@kaylowsphere.com>"` |
+| `MAIL_TO` | `david.antoina@kaylowsphere.com` |
 
 `.env.local` est ignoré par git (ne jamais committer les identifiants).

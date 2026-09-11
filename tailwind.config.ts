@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Palette officielle — Charte SphereWeb v2.0 (§2.1)
+        // Palette officielle — anciennement Charte SphereWeb v2.0 (§2.1), Kaylow Sphere
         navy: {
           DEFAULT: '#050B2B', // Fond principal — bleu profond (aligné portfolio)
           800: '#0A1238', // Surfaces surélevées

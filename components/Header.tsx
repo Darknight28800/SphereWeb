@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Logo from './Logo';
-import { nav } from '@/lib/site';
+import { nav, site } from '@/lib/site';
 
 export default function Header() {
   const pathname = usePathname();
@@ -46,7 +46,7 @@ export default function Header() {
         Aller au contenu
       </a>
       <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" aria-label="SphereWeb — accueil">
+        <Link href="/" aria-label={`${site.name} — accueil`}>
           <Logo />
         </Link>
 

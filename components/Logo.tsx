@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { site } from '@/lib/site';
 
 interface LogoProps {
   withWordmark?: boolean;
@@ -7,13 +8,13 @@ interface LogoProps {
   size?: number;
 }
 
-/** Logo SphereWeb — sphère (image de marque) + nom. */
+/** Logo Kaylow Sphere — sphère (image de marque) + nom. */
 export default function Logo({ withWordmark = true, className = '', size = 34 }: LogoProps) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <Image
         src="/logo-sphere.png"
-        alt={withWordmark ? '' : 'SphereWeb'}
+        alt={withWordmark ? '' : site.name}
         width={size}
         height={size}
         priority
@@ -21,7 +22,7 @@ export default function Logo({ withWordmark = true, className = '', size = 34 }:
       />
       {withWordmark && (
         <span className="font-heading text-lg font-bold tracking-tight text-white">
-          Sphere<span className="text-accent">Web</span>
+          Kaylow <span className="text-accent">Sphere</span>
         </span>
       )}
     </span>

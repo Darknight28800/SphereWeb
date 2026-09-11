@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
   title: 'À propos',
-  description: `${site.legalName}, développeur freelance fullstack en ${site.location}. Parcours, méthode de travail et valeurs derrière SphereWeb.`,
+  description: `${site.legalName}, développeur freelance fullstack en ${site.location}. Parcours, méthode de travail et valeurs derrière ${site.name}.`,
   path: '/a-propos',
 });
 
@@ -25,7 +25,7 @@ const values: [string, string][] = [
 export default function AboutPage() {
   return (
     <>
-      <PageHeader index="01" eyebrow="À propos" title={`${site.legalName}, derrière SphereWeb`} />
+      <PageHeader index="01" eyebrow="À propos" title={`${site.legalName}, derrière ${site.name}`} />
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:items-start">
@@ -43,9 +43,9 @@ export default function AboutPage() {
                 m&apos;a poussé à changer de voie : faire un travail qui a du sens, et le faire bien.
               </p>
               <p>
-                SphereWeb est la marque sous laquelle j&apos;exerce cette activité, en micro-entreprise.
-                Ce site est ma vitrine officielle, indépendante des plateformes freelance sur
-                lesquelles on peut aussi me trouver.
+                {site.name} est la marque sous laquelle j&apos;exerce cette activité, en
+                micro-entreprise. Ce site est ma vitrine officielle, indépendante des plateformes
+                freelance sur lesquelles on peut aussi me trouver.
               </p>
             </div>
           </div>

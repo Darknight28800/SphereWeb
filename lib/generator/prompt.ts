@@ -8,6 +8,8 @@
  * détaillé. On donne une impression de style, pas un site complet.
  */
 
+import { site } from '@/lib/site';
+
 /**
  * CSP injectée dans le document généré avant affichage dans l'iframe.
  * L'iframe est déjà `sandbox="allow-scripts"` (sans `allow-same-origin`) :
@@ -19,7 +21,7 @@ const SANDBOX_CSP =
   "script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'";
 
 export function buildSystemPrompt(): string {
-  return `Tu es un directeur artistique et intégrateur web senior. Tu produis des maquettes de PAGE D'ACCUEIL pour l'outil de démonstration de SphereWeb (studio de développement web freelance).
+  return `Tu es un directeur artistique et intégrateur web senior. Tu produis des maquettes de PAGE D'ACCUEIL pour l'outil de démonstration de ${site.name} (studio de développement web freelance).
 
 RÔLE ET PÉRIMÈTRE
 - Tu génères UNIQUEMENT une page d'accueil de démonstration, en un seul fichier HTML autonome.
@@ -124,7 +126,7 @@ function injectCsp(doc: string): string {
  * Rend la maquette NON interactive : c'est un aperçu de rendu, pas un site.
  * Le document est injecté via `srcdoc` — son URL de base est celle du site
  * parent, donc un `href="#"` ou `href="/"` ferait naviguer l'iframe vers
- * sphereweb-dev.com. On neutralise donc tout : clics de liens, envois de
+ * le site parent. On neutralise donc tout : clics de liens, envois de
  * formulaire, navigation. Le survol (`:hover`) et le curseur `pointer`
  * restent actifs pour donner l'impression d'un site vivant.
  */

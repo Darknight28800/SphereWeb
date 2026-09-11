@@ -5,7 +5,7 @@ const BASE_URL = site.url;
 
 /**
  * Fabrique les métadonnées d'une page à partir d'un titre et d'une description.
- * Le suffixe « — SphereWeb » et l'URL canonique sont ajoutés automatiquement.
+ * Le suffixe « — {site.name} » et l'URL canonique sont ajoutés automatiquement.
  */
 export function pageMetadata(options: {
   title: string;

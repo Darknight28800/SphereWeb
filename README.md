@@ -1,18 +1,20 @@
-# SphereWeb — site officiel
+# Kaylow Sphere — site officiel
 
-Site vitrine de **SphereWeb**, la marque de David Antoina, développeur freelance fullstack
-(micro-entreprise, Eure-et-Loir · 28).
+Site vitrine de **Kaylow Sphere** (anciennement SphereWeb), la marque de David Antoina,
+développeur freelance fullstack (micro-entreprise, Eure-et-Loir · 28).
 
-> « SphereWeb, le centre de gravité de votre projet web. »
+> « Kaylow Sphere, le centre de gravité de votre projet web. »
 
-Référence du projet : [`docs/Charte_SphereWeb.docx`](docs/Charte_SphereWeb.docx) (v2.0 — Août 2026).
+Référence du projet : [`docs/Charte_SphereWeb.docx`](docs/Charte_SphereWeb.docx) (v2.0 — Août 2026,
+rédigée sous l'ancien nom SphereWeb — contenu toujours valable, seuls le nom et le domaine changent).
 
 Décisions postérieures à la charte :
 - **Next.js** (la charte prévoyait React + Vite). L'« API interne Node/Express » du formulaire
   de contact est une **Route Handler Next** (`app/api/contact/route.ts`).
-- Domaine officiel : **`sphereweb-dev.com`** (la charte mentionnait `sphere-web.com`).
+- Renommage : **Kaylow Sphere**, domaine **`kaylowsphere.com`** (anciennement SphereWeb /
+  `sphereweb-dev.com`, avant ça `sphere-web.com` dans la charte d'origine).
 - Hébergement : **Hostinger** mutualisé Business avec application Node.js (la charte mentionnait IONOS).
-- E-mail de contact : `david-antoina@sphereweb-dev.com`.
+- E-mail de contact : `david.antoina@kaylowsphere.com` — ⚠️ boîte à recréer sur le nouveau domaine.
 
 ## Stack
 
@@ -24,12 +26,12 @@ Décisions postérieures à la charte :
 | SEO | Metadata API, `app/sitemap.ts`, `app/robots.ts` |
 | Formulaire contact | Route Handler `app/api/contact` → nodemailer → SMTP |
 | Démo IA (`/demo`) | Route Handler `app/api/generate` → API Anthropic (Claude Sonnet) → aperçu HTML en iframe sandboxée |
-| Hébergement | Hostinger mutualisé (Business) avec application Node.js — domaine `sphereweb-dev.com` |
+| Hébergement | Hostinger mutualisé (Business) avec application Node.js — domaine `kaylowsphere.com` |
 
 ## Arborescence
 
 ```
-SphereWeb/
+kaylow-sphere/
 ├─ app/
 │  ├─ layout.tsx            En-tête / pied de page / polices / metadata globale
 │  ├─ page.tsx              Accueil
@@ -156,7 +158,9 @@ Source : `assets/Logo-sphere.jpg` (PNG transparent 1024²), plus `assets/favicon
 - [x] ~~Logo + favicons~~ (fournis, `public/` généré via `npm run icons`)
 - [x] ~~Mentions légales : SIRET, TVA~~ (adresse postale : sur demande, cf. page)
 - [x] ~~Confidentialité : durée de conservation~~ (3 ans ; aucun analytics pour l'instant)
-- [ ] Identifiants SMTP de la boîte `david-antoina@sphereweb-dev.com` (`.env.local` / hPanel Hostinger)
+- [ ] **Domaine `kaylowsphere.com`** : achat + DNS pointés vers Hostinger
+- [ ] **Boîte mail `david.antoina@kaylowsphere.com`** à créer côté Hostinger, puis identifiants
+      SMTP à jour dans `.env.local` / hPanel
 - [ ] `ANTHROPIC_API_KEY` + plafond de dépense pour la démo `/demo` (cf. § « Démo IA »)
 - [ ] Liens profils Malt / Codeur.com (`lib/site.ts` → `site.profiles`)
 - [ ] Captures d'écran des projets du portfolio (`public/portfolio/<slug>/`, cf. son README)

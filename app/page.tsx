@@ -36,18 +36,11 @@ export default function HomePage() {
           <div aria-hidden="true" className="absolute inset-0 aura" />
         </ScrollParallax>
 
-        {/* Sphère 3D — à droite, entièrement visible */}
+        {/* Sphère 3D — à droite, entièrement visible, sans halo circulaire */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 right-0 w-full sm:w-[62%] lg:w-[56%]"
         >
-          <div
-            className="absolute left-1/2 top-1/2 aspect-square w-[80%] -translate-x-1/2 -translate-y-1/2"
-            style={{
-              background:
-                'radial-gradient(circle, rgba(91,61,246,0.24) 0%, rgba(34,211,238,0.06) 45%, transparent 70%)',
-            }}
-          />
           <HeroBackground3D className="absolute inset-0" />
         </div>
 
